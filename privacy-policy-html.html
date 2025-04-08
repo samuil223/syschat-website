@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - Политика за поверителност</title>
+    <meta name="description" content="Научете повече за това как SysChat защитава и обработва вашите лични данни.">
+    <meta name="keywords" content="поверителност, privacy policy, лични данни, защита, SysChat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Цветове */
+        :root {
+            --primary: #0052CC;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --white: #ffffff;
+        }
+
+        /* Базов стил */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(180deg, #000 0%, #08235C 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .policy-section {
+            margin-bottom: 40px;
+        }
+        
+        .policy-section h2 {
+            color: var(--primary);
+            margin-top: 40px;
+        }
+        
+        .policy-section h3 {
+            margin-top: 30px;
+        }
+        
+        .policy-list {
+            margin-bottom: 20px;
+        }
+        
+        .policy-list li {
+            margin-bottom: 10px;
+        }
+        
+        /* Чатбот виджет */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-icon {
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .footer-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .footer-btn {
+            padding: 10px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .footer-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #dee2e6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40" alt="SysChat Logo">
+                    SysChat
+                </a>
+                <nav class="nav-menu">
+                    <a href="platforms.html" class="nav-item">Платформи</a>
+                    <a href="index.html#pricing" class="nav-item">Цени</a>
+                    <a href="index.html#contact" class="nav-item">Контакти</a>
+                    <a href="index.html#demo" class="btn">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Политика за поверителност</h1>
+            <p class="page-subtitle">Информация за това как SysChat защитава и обработва вашите лични данни</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="content-container">
+                <div class="policy-section">
+                    <p>Последна актуализация: 08.04.2025 г.</p>
+                    <p>В SysChat уважаваме вашето право на поверителност и се ангажираме да защитаваме вашите лични данни. Тази политика за поверителност ви информира за това как обработваме вашите лични данни, когато посещавате нашия уебсайт или използвате нашите услуги, и за вашите права относно защитата на данните.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>1. Кои сме ние</h2>
+                    <p>SysChat е платформа за чатбот услуги, предоставяна от Cardd. Седалището ни на управление е в България, и сме администратор на лични данни по смисъла на Общия регламент за защита на данните (GDPR).</p>
+                    <p>Можете да се свържете с нас на имейл: <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a>.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>2. Какви лични данни събираме</h2>
+                    <p>В зависимост от начина, по който взаимодействате с нас, може да събираме следните видове лични данни:</p>
+                    
+                    <h3>2.1. Информация, която предоставяте доброволно</h3>
+                    <ul class="policy-list">
+                        <li>Идентификационни данни: име, имейл адрес, телефонен номер</li>
+                        <li>Информация за компанията: име на компанията, служебен имейл, позиция</li>
+                        <li>Комуникационни данни: съдържание на съобщенията, които изпращате чрез формите за контакт или по имейл</li>
+                        <li>Информация за плащане: данни за банкова сметка, информация за кредитна карта (обработвана чрез нашите доверени партньори за плащания)</li>
+                    </ul>
+                    
+                    <h3>2.2. Информация, събирана автоматично</h3>
+                    <ul class="policy-list">
+                        <li>Технически данни: IP адрес, тип и версия на браузъра, настройки на часовата зона, операционна система и платформа</li>
+                        <li>Данни за използването: информация за посещенията ви на нашия уебсайт, включително пълния URL път, страниците, които сте разгледали, време, прекарано на страниците</li>
+                        <li>Данни за взаимодействието с нашия чатбот: запитвания, отговори, време на взаимодействие</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>3. Как използваме вашите лични данни</h2>
+                    <p>Използваме вашите лични данни за следните цели:</p>
+                    
+                    <h3>3.1. Предоставяне на нашите услуги</h3>
+                    <ul class="policy-list">
+                        <li>За да създадем и управляваме вашия акаунт</li>
+                        <li>За да предоставяме услугите си по чатбот интеграция</li>
+                        <li>За да обработваме плащания и да управляваме нашите бизнес отношения</li>
+                        <li>За да осигурим клиентска поддръжка</li>
+                    </ul>
+                    
+                    <h3>3.2. Подобряване на нашите услуги</h3>
+                    <ul class="policy-list">
+                        <li>За да анализираме как се използват нашите услуги с цел подобряването им</li>
+                        <li>За да обучаваме нашите алгоритми и да подобряваме точността на отговорите на чатбота</li>
+                        <li>За да разработваме нови функционалности и услуги</li>
+                    </ul>
+                    
+                    <h3>3.3. Комуникация</h3>
+                    <ul class="policy-list">
+                        <li>За да отговаряме на ваши запитвания</li>
+                        <li>За да ви изпращаме важна информация относно нашите услуги, промени в условията или политиките</li>
+                        <li>С ваше съгласие, за да ви изпращаме маркетингова информация относно нашите продукти и услуги</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>4. Правно основание за обработка на вашите данни</h2>
+                    <p>Обработваме вашите лични данни на следните правни основания:</p>
+                    
+                    <ul class="policy-list">
+                        <li><strong>Изпълнение на договор:</strong> Когато обработката е необходима за изпълнение на договор с вас или за предприемане на стъпки по ваше искане преди сключване на договор.</li>
+                        <li><strong>Законни интереси:</strong> Когато обработката е необходима за нашите законни интереси или тези на трета страна, освен когато вашите интереси или основни права и свободи имат предимство пред тези интереси.</li>
+                        <li><strong>Съгласие:</strong> Когато сте дали изрично съгласие за обработката на вашите лични данни за една или повече конкретни цели.</li>
+                        <li><strong>Законово задължение:</strong> Когато обработката е необходима за спазване на законово задължение, което се прилага за нас.</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>5. Споделяне на вашите лични данни</h2>
+                    <p>Може да споделяме вашите лични данни със следните категории получатели:</p>
+                    
+                    <ul class="policy-list">
+                        <li><strong>Доставчици на услуги:</strong> Трети страни, които предоставят услуги от наше име, като хостинг, обработка на плащания, анализ на данни, маркетинг.</li>
+                        <li><strong>Бизнес партньори:</strong> Когато предлагаме услуги съвместно с бизнес партньори или трябва да интегрираме нашия чатбот с техни системи.</li>
+                        <li><strong>Спазване на закона:</strong> Когато това се изисква от закона или в отговор на законен процес, като съдебна заповед или призовка.</li>
+                        <li><strong>Защита на интереси:</strong> Когато е необходимо за защита на нашите права, собственост или безопасност, или тези на нашите клиенти, партньори или други лица.</li>
+                    </ul>
+                    
+                    <p>Ние не продаваме вашите лични данни на трети страни.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>6. Международни трансфери на данни</h2>
+                    <p>Вашите лични данни могат да бъдат прехвърляни, съхранявани и обработвани в страни извън Европейското икономическо пространство (ЕИП), където нашите сървъри са разположени или където нашите доставчици на услуги оперират.</p>
+                    
+                    <p>Когато прехвърляме вашите лични данни извън ЕИП, ние гарантираме, че се прилага подобно ниво на защита, като прилагаме поне една от следните мерки:</p>
+                    
+                    <ul class="policy-list">
+                        <li>Прехвърляме данни само на страни, които са признати от Европейската комисия като осигуряващи адекватно ниво на защита на личните данни.</li>
+                        <li>Използваме специфични договори, одобрени от Европейската комисия, които дават на личните данни същата защита, каквато имат в Европа.</li>
+                        <li>Когато използваме доставчици, базирани в САЩ, може да прехвърляме данни към тях, ако те са част от програмата Privacy Shield, което изисква от тях да осигурят подобна защита на личните данни, споделяни между Европа и САЩ.</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>7. Сигурност на данните</h2>
+                    <p>Ние прилагаме подходящи технически и организационни мерки, за да защитим вашите лични данни от случайна загуба, неправомерно използване, достъп, разкриване, промяна или унищожаване.</p>
+                    
+                    <p>Достъпът до вашите лични данни е ограничен само до тези служители, агенти, изпълнители и други трети страни, които имат бизнес нужда от това. Те ще обработват вашите лични данни само по наши инструкции и са обвързани със задължение за поверителност.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>8. Съхранение на данните</h2>
+                    <p>Ще съхраняваме вашите лични данни само за периода, необходим за изпълнение на целите, за които сме ги събрали, включително за целите на спазването на законовите, счетоводните или отчетните изисквания.</p>
+                    
+                    <p>За да определим подходящия период на съхранение на личните данни, ние вземаме предвид количеството, естеството и чувствителността на личните данни, потенциалния риск от вреда от неоторизирано използване или разкриване, целите, за които обработваме вашите лични данни и дали можем да постигнем тези цели чрез други средства, както и приложимите законови изисквания.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>9. Вашите права за защита на данните</h2>
+                    <p>При определени обстоятелства, вие имате следните права по отношение на вашите лични данни:</p>
+                    
+                    <ul class="policy-list">
+                        <li><strong>Право на достъп:</strong> Имате право да поискате копие на вашите лични данни, които държим за вас.</li>
+                        <li><strong>Право на коригиране:</strong> Имате право да поискате коригиране на непълни или неточни данни, които държим за вас.</li>
+                        <li><strong>Право на изтриване:</strong> Имате право да поискате изтриване на вашите лични данни при определени обстоятелства.</li>
+                        <li><strong>Право на ограничаване на обработката:</strong> Имате право да поискате ограничаване на обработката на вашите лични данни при определени обстоятелства.</li>
+                        <li><strong>Право на преносимост на данните:</strong> Имате право да получите вашите лични данни, които сте ни предоставили, в структуриран, широко използван и машинно четим формат.</li>
+                        <li><strong>Право на възражение:</strong> Имате право да възразите срещу обработката на вашите лични данни при определени обстоятелства.</li>
+                        <li><strong>Право на оттегляне на съгласие:</strong> Когато обработваме вашите лични данни на базата на съгласие, имате право да оттеглите това съгласие по всяко време.</li>
+                    </ul>
+                    
+                    <p>Ако желаете да упражните някое от тези права, моля, свържете се с нас на <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a>.</p>
+                    
+                    <p>Няма да начисляваме такса за достъп до вашите лични данни (или за упражняване на други права). Въпреки това, можем да начислим разумна такса, ако вашето искане е явно неоснователно, повтарящо се или прекомерно. Алтернативно, можем да откажем да изпълним вашето искане при тези обстоятелства.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>10. Промени в нашата политика за поверителност</h2>
+                    <p>Ние периодично преглеждаме нашата политика за поверителност. Тази версия е последно актуализирана на датата, посочена в началото на документа.</p>
+                    
+                    <p>Ще ви уведомяваме за важни промени в нашата политика за поверителност, като публикуваме новата политика на нашия уебсайт или чрез директна комуникация с вас.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h2>11. Контакти</h2>
+                    <p>Ако имате въпроси или оплаквания относно тази политика за поверителност или нашите практики за защита на данните, моля, свържете се с нас на <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a>.</p>
+                    
+                    <p>Имате право да подадете жалба до надзорен орган по защита на данните. В България това е Комисията за защита на личните данни (КЗЛД).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="about-us.html">За нас</a></li>
+                        <li class="footer-link"><a href="faq.html">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="privacy-policy.html">Поверителност</a></li>
+                        <li class="footer-link"><a href="terms.html">Общи условия</a></li>
+                        <li class="footer-link"><a href="cookies.html">Бисквитки</a></li>
+                        <li class="footer-link"><a href="gdpr.html">Политика за обработване на личните данни</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Абонирайте се за новини</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот виджет -->
+    <div class="chatbot-widget">
+        <div class="chatbot-bubble">
+            <i class="fas fa-comment chatbot-icon"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Симулация на чатбот отваряне
+        const chatbotBubble = document.querySelector('.chatbot-bubble');
+        if (chatbotBubble) {
+            chatbotBubble.addEventListener('click', function() {
+                alert('Чатбот функционалността ще бъде интегрирана тук!');
+            });
+        }
+    </script>
+</body>
+</html>

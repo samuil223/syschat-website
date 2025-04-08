@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - За нас</title>
+    <meta name="description" content="Научете повече за SysChat - кои сме ние, нашата мисия и как помагаме на онлайн магазините да растат с интелигентни чатбот решения.">
+    <meta name="keywords" content="SysChat, за нас, компания, мисия, екип, чатбот, онлайн магазин">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Цветове */
+        :root {
+            --primary: #0052CC;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --white: #ffffff;
+        }
+
+        /* Базов стил */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(180deg, #000 0%, #08235C 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Mission Section */
+        .mission-section {
+            padding: 80px 0;
+            background-color: var(--gray-100);
+            text-align: center;
+        }
+        
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mission-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .team-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid var(--gray-100);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .member-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .member-bio {
+            font-size: 0.9rem;
+        }
+        
+        /* Video Section */
+        .video-section {
+            padding: 80px 0;
+            background-color: var(--gray-100);
+            text-align: center;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-text {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-white:hover {
+            background-color: var(--gray-100);
+        }
+        
+        /* Чатбот виджет */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-icon {
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Преходи и анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .footer-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .footer-btn {
+            padding: 10px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .footer-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #dee2e6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .mission-values,
+            .team-members {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .video-container iframe {
+                height: 360px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .mission-values,
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container iframe {
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40" alt="SysChat Logo">
+                    SysChat
+                </a>
+                <nav class="nav-menu">
+                    <a href="platforms.html" class="nav-item">Платформи</a>
+                    <a href="index.html#pricing" class="nav-item">Цени</a>
+                    <a href="index.html#contact" class="nav-item">Контакти</a>
+                    <a href="index.html#demo" class="btn">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">За нас</h1>
+            <p class="page-subtitle">Запознайте се с екипа зад SysChat и разберете повече за нашата мисия и ценности.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h2>Нашата история</h2>
+                    <p>SysChat е създаден през 2022 г. от екип от ентусиасти в областта на изкуствения интелект и електронната търговия. Всичко започна с една проста идея – да направим обслужването на клиенти по-ефективно и по-достъпно за всеки онлайн магазин.</p>
+                    <p>След повече от година разработка и тестване с десетки бизнеси, ние създадохме SysChat – персонализирано решение за онлайн магазини, което комбинира най-добрите технологии с лесно използване и достъпност.</p>
+                    <p>Днес SysChat помага на стотици бизнеси да подобрят обслужването на клиентите си, да увеличат продажбите и да изградят по-силна връзка с клиентите си. Но това е само началото – ние непрекъснато подобряваме нашата технология, за да предоставим най-доброто решение на пазара.</p>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop" alt="Екипът на SysChat">
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=600&auto=format&fit=crop" alt="Нашият офис">
+                </div>
+                <div class="about-text fade-in">
+                    <h2>Какво правим</h2>
+                    <p>SysChat е интелигентен асистент за онлайн магазини, който автоматизира обслужването на клиенти 24/7. Ние създаваме персонализирани решения, които помагат на бизнесите да:</p>
+                    <ul>
+                        <li>Отговарят на въпроси на клиентите мигновено, без чакане</li>
+                        <li>Предоставят информация за продукти и услуги</li>
+                        <li>Насочват клиентите към правилните продукти</li>
+                        <li>Подпомагат процеса на закупуване</li>
+                        <li>Събират ценна обратна връзка</li>
+                    </ul>
+                    <p>Нашата цел е да помогнем на всеки бизнес, независимо от размера му, да предоставя отлично обслужване на клиентите, което води до повече продажби и по-доволни клиенти.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <h2>Нашата мисия</h2>
+                <p>Мисията на SysChat е да демократизираме достъпа до високотехнологични решения за обслужване на клиенти и да помогнем на малките и средни бизнеси да се конкурират наравно с големите играчи в електронната търговия.</p>
+                
+                <div class="mission-values">
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Клиентът на първо място</h3>
+                        <p>Вярваме, че успехът на нашите клиенти е и наш успех. Затова винаги поставяме техните нужди на първо място и се стремим да надминем очакванията им.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Иновации</h3>
+                        <p>Постоянно търсим нови начини да подобрим нашите продукти и услуги. Иновациите са в основата на всичко, което правим.</p>
+                    </div>
+                    
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Сигурност и надеждност</h3>
+                        <p>Защитата на данните и надеждността на услугите ни са от първостепенно значение. Нашите клиенти могат да разчитат на нас 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="team-intro">
+                <h2>Нашият екип</h2>
+                <p>Зад SysChat стои екип от страстни професионалисти с богат опит в областта на изкуствения интелект, електронната търговия и обслужването на клиенти.</p>
+            </div>
+            
+            <div class="team-members">
+                <div class="team-member fade-in">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop" alt="Мария Петрова" class="member-image">
+                    <h3 class="member-name">Мария Петрова</h3>
+                    <p class="member-role">Изпълнителен директор</p>
+                    <p class="member-bio">С над 10 години опит в технологичната индустрия, Мария ръководи визията и стратегията на SysChat. Преди да основе компанията, тя е работила в няколко успешни стартъпа в областта на изкуствения интелект.</p>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Георги Иванов" class="member-image">
+                    <h3 class="member-name">Георги Иванов</h3>
+                    <p class="member-role">Технически директор</p>
+                    <p class="member-bio">Георги е експерт в областта на машинното обучение и обработката на естествен език. Той е мозъкът зад технологията, която прави SysChat толкова ефективен и интуитивен.</p>
+                </div>
+                
+                <div class="team-member fade-in">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop" alt="Ана Димитрова" class="member-image">
+                    <h3 class="member-name">Ана Димитрова</h3>
+                    <p class="member-role">Директор клиентско обслужване</p>
+                    <p class="member-bio">Ана има богат опит в обслужването на клиенти и електронната търговия. Тя се грижи всеки клиент на SysChat да получи персонализирано внимание и подкрепа.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <h2>Вижте SysChat в действие</h2>
+            <p>Това кратко видео показва как SysChat помага на онлайн магазините да подобрят обслужването на клиентите и да увеличат продажбите.</p>
+            
+            <div class="video-container">
+                <iframe src="https://drive.google.com/file/d/1hxv1eg8Wj0fHKxAObOeLGh6nbnv6GX_p/preview" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2 class="contact-title">Готови сте да започнете?</h2>
+            <p class="contact-text">Свържете се с нас днес и разберете как SysChat може да помогне на вашия бизнес.</p>
+            <a href="index.html#demo" class="btn btn-white">Попълни заявка</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">За нас</a></li>
+                        <li class="footer-link"><a href="#">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="#">Поверителност</a></li>
+                        <li class="footer-link"><a href="#">Общи условия</a></li>
+                        <li class="footer-link"><a href="#">Бисквитки</a></li>
+                        <li class="footer-link"><a href="#">Политика за обработване на личните данни</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Абонирайте се за новини</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот виджет -->
+    <div class="chatbot-widget">
+        <div class="chatbot-bubble">
+            <i class="fas fa-comment chatbot-icon"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Анимация за появяване на елементи
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        // Проверка при първоначално зареждане
+        window.addEventListener('load', checkFade);
+        // Проверка при скролване
+        window.addEventListener('scroll', checkFade);
+        
+        // Плавно скролване
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Симулация на чатбот отваряне
+        const chatbotBubble = document.querySelector('.chatbot-bubble');
+        if (chatbotBubble) {
+            chatbotBubble.addEventListener('click', function() {
+                alert('Чатбот функционалността ще бъде интегрирана тук!');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - Асистент за онлайн магазини</title>
+    <meta name="description" content="SysChat - интелигентен чатбот асистент за вашия онлайн магазин. Повече продажби, по-доволни клиенти, гарантирано!">
+    <meta name="keywords" content="чатбот, онлайн магазин, продажби, обслужване на клиенти, изкуствен интелект">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Цветове */
+        :root {
+            --primary: #0052CC;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --white: #ffffff;
+        }
+
+        /* Базов стил */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-lg {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #000 0%, #08235C 100%);
+            color: white;
+        }
+        
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-content {
+            flex: 1;
+        }
+        
+        .hero-chatbot {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        /* Companies Section */
+        .companies {
+            padding: 30px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+        
+        .companies-title {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        
+        .companies-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .company-logo {
+            height: 30px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        
+        .company-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        
+        /* Section */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        /* Problem Section */
+        .problem {
+            background-color: var(--white);
+        }
+        
+        .problem-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .problem-text {
+            flex: 1;
+        }
+        
+        .comparison-image {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        
+        /* Solution Section */
+        .solution {
+            background-color: var(--gray-100);
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .solution-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .solution-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Conversion Section */
+        .conversion {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+        
+        .conversion-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .conversion-text {
+            flex: 1;
+        }
+        
+        .conversion-image {
+            flex: 1;
+        }
+        
+        .conversion-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        
+        .conversion-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .conversion-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        /* Control Section */
+        .control {
+            background-color: var(--gray-100);
+            padding: 80px 0;
+        }
+        
+        .control-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .control-image {
+            flex: 1;
+        }
+        
+        .control-text {
+            flex: 1;
+        }
+        
+        .control-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        
+        .control-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .control-icon-check {
+            color: #22C55E;
+            margin-top: 5px;
+        }
+        
+        /* How it works */
+        .how-it-works {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+        
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Guarantee Section */
+        .guarantee {
+            background-color: var(--gray-100);
+            padding: 80px 0;
+        }
+        
+        .guarantee-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .guarantee-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .guarantee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .guarantee-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background-color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-time {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #6c757d;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            background-color: var(--gray-100);
+            padding: 80px 0;
+        }
+        
+        .pricing-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pricing-benefits {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .pricing-note {
+            background-color: #E0EAFF;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+        
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .footer-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .footer-btn {
+            padding: 10px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .footer-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #dee2e6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        
+        /* Видео контейнери */
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin: 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+        }
+        
+        /* Чатбот контейнер */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-icon {
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Преходи и анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Utility */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-2 {
+            margin-top: 1rem;
+        }
+        
+        .mt-4 {
+            margin-top: 2rem;
+        }
+        
+        .mt-6 {
+            margin-top: 3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container, 
+            .problem-content,
+            .conversion-container,
+            .control-container {
+                flex-direction: column;
+            }
+            
+            .solution-grid,
+            .guarantee-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .video-container iframe {
+                height: 360px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .solution-grid,
+            .guarantee-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container iframe {
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">
+                    <img src="https://via.placeholder.com/40" alt="SysChat Logo">
+                    SysChat
+                </a>
+                <nav class="nav-menu">
+                    <a href="platforms.html" class="nav-item">Платформи</a>
+                    <a href="#pricing" class="nav-item">Цени</a>
+                    <a href="#contact" class="nav-item">Контакти</a>
+                    <a href="#demo" class="btn">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Повече продажби.<br>По-доволни клиенти.<br>Гарантирано.</h1>
+                    <p class="hero-subtitle">СисЧат - асистент за онлайн магазини.<br>Вие правите това, което умеете най-добре,<br>ние поемаме обслужването на клиентите.</p>
+                    <a href="#demo" class="btn btn-lg">Да, искам това!</a>
+                </div>
+                <div class="hero-chatbot">
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=500&auto=format&fit=crop" alt="SysChat Интерфейс" style="border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies -->
+    <section class="companies">
+        <div class="container">
+            <p class="companies-title">50.000+ компании се довериха на изкуствения интелект</p>
+            <div class="companies-container">
+                <img src="https://via.placeholder.com/150x50" alt="Компания 1" class="company-logo">
+                <img src="https://via.placeholder.com/150x50" alt="Компания 2" class="company-logo">
+                <img src="https://via.placeholder.com/150x50" alt="Компания 3" class="company-logo">
+                <img src="https://via.placeholder.com/150x50" alt="Компания 4" class="company-logo">
+                <img src="https://via.placeholder.com/150x50" alt="Компания 5" class="company-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section problem" id="problem">
+        <div class="container">
+            <h2 class="section-title">Клиентите са важни...</h2>
+            <div class="problem-content">
+                <div class="problem-text">
+                    <p>...Но много от тях не успяват да намерят ясни отговори на въпроси си.</p>
+                    <p>Объркани и разочаровани, те напускат магазина – водейки до загубени продажби.</p>
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=700&auto=format&fit=crop" alt="Сравнение на чат асистенти" class="comparison-image" style="margin-top: 20px;">
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <h2>"Добре... Но какво ви прави различни?"</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section solution" id="solution">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Денонощно обслужване</h3>
+                    <p>СисЧат дава отговори по всяко време на денонощието, без забавяне.</p>
+                    <img src="https://images.unsplash.com/photo-1616587226157-48e49175ee20?q=80&w=500&auto=format&fit=crop" alt="Денонощно обслужване" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                </div>
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Винаги до клиентите</h3>
+                    <p>Благодарение на бързите и точни отговори, клиентите се чувстват информирани и остават във вашия магазин.</p>
+                    <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=500&auto=format&fit=crop" alt="Винаги до клиентите" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                </div>
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>По-ниски разходи</h3>
+                    <p>Този тип комуникация намалява нуждата от персонал като пести време и средства.</p>
+                    <img src="https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?q=80&w=500&auto=format&fit=crop" alt="По-ниски разходи" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conversion Section -->
+    <section class="conversion" id="conversion">
+        <div class="container">
+            <h2 class="section-title">Винаги до клиентите.</h2>
+            <div class="conversion-container">
+                <div class="conversion-text">
+                    <p>Отговаря вместо вас – на Сайта, във Facebook или Instagram.</p>
+                    <p>Ние поемаме обслужването, без пропуснати въпроси.</p>
+                    <div class="video-container mt-4">
+                        <iframe src="https://drive.google.com/file/d/1pzZF9uI1WuxqhBkeZ3bEZrmgP_LzMO1f/preview" allowfullscreen></iframe>
+                    </div>
+                    <a href="#demo" class="btn mt-4">Да, искам това!</a>
+                </div>
+                <div class="conversion-image">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600&auto=format&fit=crop" alt="Мобилен чат интерфейс" style="border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Control Section -->
+    <section class="control" id="control">
+        <div class="container">
+            <h2 class="section-title">Контролът си е твой. Винаги.</h2>
+            <div class="control-container">
+                <div class="control-image">
+                    <img src="https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?q=80&w=600&auto=format&fit=crop" alt="Контролен панел" style="border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                </div>
+                <div class="control-text">
+                    <p>SysChat работи вместо теб – но ти решаваш кога да се включваш.</p>
+                    <ul class="control-list">
+                        <li class="control-item">
+                            <i class="fas fa-check control-icon-check"></i>
+                            <span>Влизай в разговори, когато пожелаеш</span>
+                        </li>
+                        <li class="control-item">
+                            <i class="fas fa-check control-icon-check"></i>
+                            <span>Наблюдавай кои клиенти са най-активни</span>
+                        </li>
+                        <li class="control-item">
+                            <i class="fas fa-check control-icon-check"></i>
+                            <span>Следи реалните резултати на твоя асистент</span>
+                        </li>
+                    </ul>
+                    <div class="video-container mt-4">
+                        <iframe src="https://drive.google.com/file/d/1hxv1eg8Wj0fHKxAObOeLGh6nbnv6GX_p/preview" allowfullscreen></iframe>
+                    </div>
+                    <a href="#demo" class="btn mt-4">Да, искам това!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conversion Section 2 -->
+    <section class="conversion" id="conversion2">
+        <div class="container">
+            <h2 class="section-title">Хващаме колебанието. Превръщаме го в продажба.</h2>
+            <div class="conversion-container">
+                <div class="conversion-text">
+                    <p>Клиентът се колебае?</p>
+                    <p>СисЧат отговаря навреме и предлага точния продукт.</p>
+                    <ul class="conversion-list">
+                        <li class="conversion-item">
+                            <div class="conversion-icon">1</div>
+                            <span>Препоръчва.</span>
+                        </li>
+                        <li class="conversion-item">
+                            <div class="conversion-icon">2</div>
+                            <span>Отговаря.</span>
+                        </li>
+                        <li class="conversion-item">
+                            <div class="conversion-icon">3</div>
+                            <span>Завършва продажбата.</span>
+                        </li>
+                    </ul>
+                    <a href="#demo" class="btn mt-4">Да, искам това!</a>
+                </div>
+                <div class="conversion-image">
+                    <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?q=80&w=600&auto=format&fit=crop" alt="Чат примери" style="border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works Section -->
+    <section class="how-it-works" id="howitworks">
+        <div class="container">
+            <h2 class="section-title">Как работи SysChat?</h2>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Разкажи ни за магазина си.</h3>
+                        <p>Попълни кратка форма с която да разберем от какво имаш нужда.</p>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Получаваш асистента си до 24 ч.</h3>
+                        <p>След като е готов, го изпращаме за безплатен тест.</p>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Харесва ти? Активираме го.</h3>
+                        <p>Вграждаме SysChat във желаната от теб платформа.</p>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Клиентите пишат. Ти работиш.</h3>
+                        <p>Без забавяне. Без пропуснати продажби.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-container mt-4">
+                <iframe src="https://drive.google.com/file/d/1pzZF9uI1WuxqhBkeZ3bEZrmgP_LzMO1f/preview" allowfullscreen></iframe>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#demo" class="btn btn-lg">Попълни заявка</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee" id="guarantee">
+        <div class="container">
+            <div class="guarantee-grid">
+                <div class="guarantee-card fade-in">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Тествай без риск</h3>
+                    <p>Демо, създадено специално за твоя бизнес.</p>
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400&auto=format&fit=crop" alt="Тествай без риск" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                </div>
+                <div class="guarantee-card fade-in">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>14 дни гаранция</h3>
+                    <p>Не си доволен? Връщаме парите. Без въпроси.</p>
+                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=400&auto=format&fit=crop" alt="14 дни гаранция" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                </div>
+                <div class="guarantee-card fade-in">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Доживотна поддръжка</h3>
+                    <p>Сигурна подръжка с цел предоставяне на най-доброто.</p>
+                    <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=400&auto=format&fit=crop" alt="Доживотна поддръжка" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="demo">
+        <div class="container">
+            <h2 class="cta-title">Готов ли си да спреш да губиш клиенти?</h2>
+            <p class="cta-subtitle">Всеки пропуснат въпрос е пропусната продажба.<br>SysChat отговаря, препоръчва и продава – вместо теб.</p>
+            <div class="video-container">
+                <iframe src="https://drive.google.com/file/d/1hxv1eg8Wj0fHKxAObOeLGh6nbnv6GX_p/preview" allowfullscreen></iframe>
+            </div>
+            <a href="#" class="btn btn-lg mt-4">Попълни заявка</a>
+            <div class="cta-time">
+                <i class="far fa-clock"></i>
+                <span>Отнема по-малко от 1 минута</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Защо не показваме цени в сайта?</h2>
+            <div class="pricing-content">
+                <p>Разбираме колко е важно да знаеш каква ще е цената още преди да вземеш решение. Но истината е, че една фиксирана сума без контекст често е подвеждаща.</p>
+                <p><strong>Ние не продаваме „един и същ продукт" на всички.</strong></p>
+                <p>Вместо това подхождаме индивидуално към всеки онлайн магазин – според нишата, броя продукти, нуждите и целите. Затова първо създаваме безплатна пробна версия, изцяло съобразена с твоя магазин. Така можеш да прецениш реалната стойност и да видиш как работи за теб – без ангажименти, без риск.</p>
+                
+                <div class="pricing-benefits">
+                    <h3>Какво получаваш безплатно:</h3>
+                    <ul class="benefits-list">
+                        <li><i class="fas fa-check-circle"></i> <span>Пробна версия на дигитален асистент, съобразена с твоя магазин</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Пълен достъп до него, за да го тестваш спокойно</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Конкретна оферта по имейл след демото</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Отговори на всички въпроси – човешки, без натиск</span></li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-note">
+                    <h3>Кога ще разбереш цената?</h3>
+                    <p>След като получиш пробната версия. Ще ти изпратим имейл с персонална оферта и всички условия, така че да вземеш решение, когато си готов.</p>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#demo" class="btn">Искам безплатна пробна версия</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Свържете се с нас</h2>
+            <div class="contact-content">
+                <p>Имате въпроси? Искате да научите повече за SysChat? Нашият екип е готов да ви помогне.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a>
+                    </div>
+                </div>
+                <p>Или използвайте чатбота в долния десен ъгъл на екрана за бързи отговори.</p>
+                
+                <!-- Форма за контакт -->
+                <form class="contact-form mt-4" action="#" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Вашето име" required class="footer-input" style="width: 100%; margin-bottom: 15px; background-color: #f8f9fa;">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Вашият имейл" required class="footer-input" style="width: 100%; margin-bottom: 15px; background-color: #f8f9fa;">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Вашето съобщение" required class="footer-input" style="width: 100%; height: 150px; margin-bottom: 15px; background-color: #f8f9fa;"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Изпрати съобщение</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">За нас</a></li>
+                        <li class="footer-link"><a href="#">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="#">Поверителност</a></li>
+                        <li class="footer-link"><a href="#">Общи условия</a></li>
+                        <li class="footer-link"><a href="#">Бисквитки</a></li>
+                        <li class="footer-link"><a href="#">Политика за обработване на личните данни</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Абонирайте се за новини, подобрения и идеи.</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот виджет -->
+    <div class="chatbot-widget">
+        <div class="chatbot-bubble">
+            <i class="fas fa-comment chatbot-icon"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Проста функция за плавно скролване
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Анимация за появяване на елементи
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        // Проверка при първоначално зареждане
+        window.addEventListener('load', checkFade);
+        // Проверка при скролване
+        window.addEventListener('scroll', checkFade);
+        
+        // Симулация на чатбот отваряне
+        const chatbotBubble = document.querySelector('.chatbot-bubble');
+        if (chatbotBubble) {
+            chatbotBubble.addEventListener('click', function() {
+                alert('Чатбот функционалността ще бъде интегрирана тук!');
+            });
+        }
+    </script>
+</body>
+</html>

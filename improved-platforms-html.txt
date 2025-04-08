@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - Поддържани платформи</title>
+    <meta name="description" content="SysChat работи на всички популярни платформи - Facebook, Instagram, вашият уебсайт, WhatsApp, Shopify, WooCommerce и други.">
+    <meta name="keywords" content="чатбот, платформи, интеграция, Facebook, Instagram, WhatsApp, онлайн магазин">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Цветове */
+        :root {
+            --primary: #0052CC;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --white: #ffffff;
+        }
+
+        /* Базов стил */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(180deg, #000 0%, #08235C 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Platforms Section */
+        .platforms {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .platform-card {
+            background-color: var(--gray-100);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .platform-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .platform-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .platform-description {
+            margin-bottom: 20px;
+        }
+        
+        .platforms-note {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* Integration Section */
+        .integration {
+            padding: 80px 0;
+            background-color: var(--gray-100);
+        }
+        
+        .integration-steps {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+        
+        .integration-step {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .integration-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .integration-content {
+            flex: 1;
+        }
+        
+        .integration-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Видео контейнер */
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin: 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Чатбот виджет */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-icon {
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Преходи и анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .footer-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .footer-btn {
+            padding: 10px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .footer-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #dee2e6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        
+        /* Utility */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-4 {
+            margin-top: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .platforms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .integration-step {
+                flex-direction: column;
+            }
+            
+            .integration-number {
+                margin: 0 auto;
+            }
+            
+            .integration-content {
+                text-align: center;
+            }
+            
+            .video-container iframe {
+                height: 360px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .platforms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container iframe {
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40" alt="SysChat Logo">
+                    SysChat
+                </a>
+                <nav class="nav-menu">
+                    <a href="platforms.html" class="nav-item">Платформи</a>
+                    <a href="index.html#pricing" class="nav-item">Цени</a>
+                    <a href="index.html#contact" class="nav-item">Контакти</a>
+                    <a href="index.html#demo" class="btn">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Поддържани платформи</h1>
+            <p class="page-subtitle">СисЧат работи безпроблемно на всички популярни платформи, където вашите клиенти могат да се свържат с вас.</p>
+        </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section class="platforms">
+        <div class="container">
+            <div class="platforms-grid">
+                <div class="platform-card fade-in">
+                    <div class="platform-icon">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <h3 class="platform-title">Facebook</h3>
+                    <p class="platform-description">Интегрирайте СисЧат с вашата Facebook страница и отговаряйте на клиентски съобщения автоматично.</p>
+                    <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?q=80&w=400&auto=format&fit=crop" alt="Facebook интеграция" style="width: 100%; border-radius: 8px; margin: 15px 0;">
+                    <a href="index.html#demo" class="btn">Получи безплатно демо</a>
+                </div>
+                
+                <div class="platform-card fade-in">
+                    <div class="platform-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h3 class="platform-title">Instagram</h3>
+                    <p class="platform-description">Осигурете мигновени отговори на въпроси, зададени през вашия Instagram профил.</p>
+                    <img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?q=80&w=400&auto=format&fit=crop" alt="Instagram интеграция" style="width: 100%; border-radius: 8px; margin: 15px 0;">
+                    <a href="index.html#demo" class="btn">Получи безплатно демо</a>
+                </div>
+                
+                <div class="platform-card fade-in">
+                    <div class="platform-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="platform-title">Вашият уебсайт</h3>
+                    <p class="platform-description">Вградете СисЧат директно във вашия уебсайт с минимални настройки.</p>
+                    <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=400&auto=format&fit=crop" alt="Уебсайт интеграция" style="width: 100%; border-radius: 8px; margin: 15px 0;">
+                    <a href="index.html#demo" class="btn">Получи безплатно демо</a>
+                </div>
+                
+                <div class="platform-card fade-in">
+                    <div class="platform-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 class="platform-title">WhatsApp</h3>
+                    <p class="platform-description">Свържете WhatsApp Business с нашата платформа за безпроблемна комуникация.</p>
+                    <img src="https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?q=80&w=400&auto=format&fit=crop" alt="WhatsApp интеграция" style="width: 100%; border-radius: 8px; margin: 15px 0;">
+                    <a href="index.html#demo" class="btn">Получи безплатно демо</a>
+                </div>
+                
+                <div class="platform-card fade-in">
+                    <div class="platform-icon">
+                        <i class="fab fa-shopify"></i>
+                    </div>
+                    <h3 class="platform-title">Shopify</h3>
+                    <p class="platform-description">Пълна интеграция с вашия Shopify магазин за персонализирано обслужване.</p>
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop" alt="Shopify интеграция" style="width: 100%; border-radius: 8px; margin: 15px 0;">
+                    <a href="index.html#demo" class="btn">Получи безплатно демо</a>
+                </div>
+                
+                <div class="platform-card fade-in">
+                    <div class="platform-icon">
+                        <i class="fab fa-wordpress"></i>
+                    </div>
+                    <h3 class="platform-title">WooCommerce</h3>
+                    <p class="platform-description">Лесна интеграция с вашия WordPress магазин с WooCommerce.</p>
+                    <img src="https://images.unsplash.com/photo-1571786256017-aee7a0c009b6?q=80&w=400&auto=format&fit=crop" alt="WooCommerce интеграция" style="width: 100%; border-radius: 8px; margin: 15px 0;">
+                    <a href="index.html#demo" class="btn">Получи безплатно демо</a>
+                </div>
+            </div>
+            
+            <div class="platforms-note mt-4">
+                <p>Не виждате платформата, която използвате? <a href="index.html#contact">Свържете се с нас</a> - вероятно можем да предложим решение.</p>
+            </div>
+            
+            <div class="video-container mt-4">
+                <iframe src="https://drive.google.com/file/d/1hxv1eg8Wj0fHKxAObOeLGh6nbnv6GX_p/preview" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section class="integration">
+        <div class="container">
+            <h2 class="text-center">Как се интегрира SysChat?</h2>
+            <div class="integration-steps">
+                <div class="integration-step fade-in">
+                    <div class="integration-number">1</div>
+                    <div class="integration-content">
+                        <h3 class="integration-title">Създаваме персонализиран асистент за вашия бизнес</h3>
+                        <p>Съобразяваме чатбота с вашите продукти, услуги и най-често задаваните въпроси.</p>
+                        <img src="https://images.unsplash.com/photo-1544725121-be3bf52e2dc7?q=80&w=600&auto=format&fit=crop" alt="Персонализиран асистент" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                    </div>
+                </div>
+                <div class="integration-step fade-in">
+                    <div class="integration-number">2</div>
+                    <div class="integration-content">
+                        <h3 class="integration-title">Предоставяме лесен код за интегриране</h3>
+                        <p>Получавате прост код, който добавяте към вашия сайт, или инструкции за свързване към социалните платформи.</p>
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop" alt="Код за интегриране" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                    </div>
+                </div>
+                <div class="integration-step fade-in">
+                    <div class="integration-number">3</div>
+                    <div class="integration-content">
+                        <h3 class="integration-title">Активираме чатбота и наблюдаваме производителността</h3>
+                        <p>След активиране, ние внимателно следим работата на асистента и правим настройки.</p>
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" alt="Наблюдение на производителността" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                    </div>
+                </div>
+                <div class="integration-step fade-in">
+                    <div class="integration-number">4</div>
+                    <div class="integration-content">
+                        <h3 class="integration-title">Постоянно подобряваме отговорите</h3>
+                        <p>Асистентът непрекъснато се усъвършенства въз основа на реалните разговори с клиентите.</p>
+                        <img src="https://images.unsplash.com/photo-1586473219010-2ffc57b0d282?q=80&w=600&auto=format&fit=crop" alt="Подобряване на отговорите" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-container mt-4">
+                <iframe src="https://drive.google.com/file/d/1pzZF9uI1WuxqhBkeZ3bEZrmgP_LzMO1f/preview" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Готови сте да започнете?</h2>
+            <p class="cta-subtitle">Поискайте безплатно демо на SysChat днес и вижте как може да помогне на вашия бизнес.</p>
+            <a href="index.html#demo" class="btn">Попълни заявка</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">За нас</a></li>
+                        <li class="footer-link"><a href="#">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="#">Поверителност</a></li>
+                        <li class="footer-link"><a href="#">Общи условия</a></li>
+                        <li class="footer-link"><a href="#">Бисквитки</a></li>
+                        <li class="footer-link"><a href="#">Политика за обработване на личните данни</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Абонирайте се за новини</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот виджет -->
+    <div class="chatbot-widget">
+        <div class="chatbot-bubble">
+            <i class="fas fa-comment chatbot-icon"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Проста функция за плавно скролване
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Анимация за появяване на елементи
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        // Проверка при първоначално зареждане
+        window.addEventListener('load', checkFade);
+        // Проверка при скролване
+        window.addEventListener('scroll', checkFade);
+        
+        // Симулация на чатбот отваряне
+        const chatbotBubble = document.querySelector('.chatbot-bubble');
+        if (chatbotBubble) {
+            chatbotBubble.addEventListener('click', function() {
+                alert('Чатбот функционалността ще бъде интегрирана тук!');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,888 @@
+// Интеграционен скрипт за всички подобрения
+(function() {
+    // Внедряваме всички отделни компоненти
+    
+    // 1. Подобрен SEO meta tags
+    function injectImprovedSEO() {
+        const metaTags = `
+            <!-- Canonical URL -->
+            <link rel="canonical" href="${window.location.href.split('?')[0]}">
+            
+            <!-- Favicons -->
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+            <link rel="manifest" href="/site.webmanifest">
+            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0052CC">
+            <meta name="msapplication-TileColor" content="#0052CC">
+            <meta name="theme-color" content="#0052CC">
+            
+            <!-- Open Graph / Facebook -->
+            <meta property="og:type" content="website">
+            <meta property="og:url" content="${window.location.href}">
+            <meta property="og:title" content="${document.title}">
+            <meta property="og:description" content="${getMetaContent('description')}">
+            <meta property="og:image" content="https://syschat.com/images/og-image.jpg">
+            <meta property="og:locale" content="bg_BG">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:url" content="${window.location.href}">
+            <meta property="twitter:title" content="${document.title}">
+            <meta property="twitter:description" content="${getMetaContent('description')}">
+            <meta property="twitter:image" content="https://syschat.com/images/twitter-image.jpg">
+            
+            <!-- Preconnect to Third-Party Domains -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+            <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+        `;
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = metaTags;
+        
+        const head = document.head;
+        tempDiv.childNodes.forEach(node => {
+            if (node.nodeType === 1) { // Елементен възел
+                head.appendChild(node.cloneNode(true));
+            }
+        });
+    }
+    
+    function getMetaContent(name) {
+        const metaTag = document.querySelector(`meta[name="${name}"]`) || document.querySelector(`meta[property="${name}"]`);
+        return metaTag ? metaTag.getAttribute('content') : '';
+    }
+    
+    // 2. Инжектираме банера за съгласие с бисквитките
+    function injectCookieConsent() {
+        // Проверяваме дали вече има съгласие
+        if (localStorage.getItem('cookieConsent')) {
+            return;
+        }
+        
+        const cookieBanner = document.createElement('div');
+        cookieBanner.className = 'cookie-banner';
+        cookieBanner.innerHTML = `
+            <div class="cookie-content">
+                <div class="cookie-text">
+                    <p>Този сайт използва бисквитки, за да подобри вашето изживяване. С използването на нашия сайт, вие се съгласявате с нашата <a href="cookies.html">политика за бисквитките</a>.</p>
+                </div>
+                <div class="cookie-buttons">
+                    <button class="cookie-btn accept-all">Приемам всички</button>
+                    <button class="cookie-btn accept-necessary">Само необходимите</button>
+                    <button class="cookie-btn cookie-settings">Настройки</button>
+                </div>
+            </div>
+        `;
+        
+        // Добавяме стиловете за банера
+        const cookieStyles = document.createElement('style');
+        cookieStyles.textContent = `
+            .cookie-banner {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.9);
+                color: white;
+                padding: 15px 20px;
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            }
+            
+            .cookie-content {
+                display: flex;
+                max-width: 1200px;
+                width: 100%;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            
+            .cookie-text {
+                flex: 1;
+                min-width: 300px;
+                padding-right: 20px;
+            }
+            
+            .cookie-text a {
+                color: #FF4757;
+                text-decoration: underline;
+            }
+            
+            .cookie-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .cookie-btn {
+                padding: 8px 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            
+            .accept-all {
+                background-color: #FF4757;
+                color: white;
+            }
+            
+            .accept-necessary {
+                background-color: transparent;
+                border: 1px solid white;
+                color: white;
+            }
+            
+            .cookie-settings {
+                background-color: #f8f9fa;
+                color: #1E293B;
+            }
+            
+            .cookie-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10001;
+                padding: 20px;
+            }
+            
+            .cookie-modal-content {
+                background-color: white;
+                border-radius: 8px;
+                max-width: 600px;
+                width: 100%;
+                max-height: 80vh;
+                overflow-y: auto;
+                padding: 30px;
+                position: relative;
+            }
+            
+            .cookie-modal-close {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 24px;
+                cursor: pointer;
+                background: none;
+                border: none;
+                color: #1E293B;
+            }
+            
+            .cookie-category {
+                margin-bottom: 20px;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 15px;
+            }
+            
+            .cookie-category:last-child {
+                border-bottom: none;
+            }
+            
+            .cookie-category-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            
+            .cookie-toggle {
+                display: flex;
+                align-items: center;
+            }
+            
+            .cookie-toggle input {
+                width: 40px;
+                height: 20px;
+                margin-left: 10px;
+            }
+            
+            .cookie-save-btn {
+                background-color: #0052CC;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                font-weight: 600;
+                cursor: pointer;
+                margin-top: 20px;
+            }
+            
+            @media (max-width: 768px) {
+                .cookie-content {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                
+                .cookie-text {
+                    padding-right: 0;
+                    margin-bottom: 15px;
+                }
+            }
+        `;
+        
+        // Добавяме елементите в DOM
+        document.head.appendChild(cookieStyles);
+        document.body.appendChild(cookieBanner);
+        
+        // Функционалност на бутоните
+        const acceptAllBtn = cookieBanner.querySelector('.accept-all');
+        const acceptNecessaryBtn = cookieBanner.querySelector('.accept-necessary');
+        const settingsBtn = cookieBanner.querySelector('.cookie-settings');
+        
+        // Приемаме всички бисквитки
+        acceptAllBtn.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'all');
+            cookieBanner.remove();
+        });
+        
+        // Приемаме само необходимите
+        acceptNecessaryBtn.addEventListener('click', function() {
+            localStorage.setItem('cookieConsent', 'necessary');
+            cookieBanner.remove();
+        });
+        
+        // Показваме настройките
+        settingsBtn.addEventListener('click', function() {
+            const modal = document.createElement('div');
+            modal.className = 'cookie-modal';
+            modal.innerHTML = `
+                <div class="cookie-modal-content">
+                    <button class="cookie-modal-close">&times;</button>
+                    <h2>Настройки за бисквитки</h2>
+                    <p>Изберете кои категории бисквитки искате да разрешите:</p>
+                    
+                    <div class="cookie-category">
+                        <div class="cookie-category-header">
+                            <h3>Необходими</h3>
+                            <div class="cookie-toggle">
+                                <label>Разрешени</label>
+                                <input type="checkbox" checked disabled>
+                            </div>
+                        </div>
+                        <p>Тези бисквитки са необходими за основното функциониране на уебсайта и не могат да бъдат изключени.</p>
+                    </div>
+                    
+                    <div class="cookie-category">
+                        <div class="cookie-category-header">
+                            <h3>Функционални</h3>
+                            <div class="cookie-toggle">
+                                <label>Разрешавам</label>
+                                <input type="checkbox" class="functional-cookies" checked>
+                            </div>
+                        </div>
+                        <p>Тези бисквитки позволяват подобрена функционалност и персонализация, като запомняне на предпочитанията.</p>
+                    </div>
+                    
+                    <div class="cookie-category">
+                        <div class="cookie-category-header">
+                            <h3>Аналитични</h3>
+                            <div class="cookie-toggle">
+                                <label>Разрешавам</label>
+                                <input type="checkbox" class="analytics-cookies" checked>
+                            </div>
+                        </div>
+                        <p>Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт.</p>
+                    </div>
+                    
+                    <div class="cookie-category">
+                        <div class="cookie-category-header">
+                            <h3>Маркетингови</h3>
+                            <div class="cookie-toggle">
+                                <label>Разрешавам</label>
+                                <input type="checkbox" class="marketing-cookies" checked>
+                            </div>
+                        </div>
+                        <p>Тези бисквитки се използват за проследяване на посетители на различни уебсайтове с цел показване на подходящи реклами.</p>
+                    </div>
+                    
+                    <button class="cookie-save-btn">Запази настройките</button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Затваряне на модала
+            const closeBtn = modal.querySelector('.cookie-modal-close');
+            closeBtn.addEventListener('click', function() {
+                modal.remove();
+            });
+            
+            // Запазване на настройките
+            const saveBtn = modal.querySelector('.cookie-save-btn');
+            saveBtn.addEventListener('click', function() {
+                const functionalCookies = modal.querySelector('.functional-cookies').checked;
+                const analyticsCookies = modal.querySelector('.analytics-cookies').checked;
+                const marketingCookies = modal.querySelector('.marketing-cookies').checked;
+                
+                const settings = {
+                    necessary: true,
+                    functional: functionalCookies,
+                    analytics: analyticsCookies,
+                    marketing: marketingCookies
+                };
+                
+                localStorage.setItem('cookieConsent', 'custom');
+                localStorage.setItem('cookieSettings', JSON.stringify(settings));
+                
+                modal.remove();
+                cookieBanner.remove();
+            });
+            
+            // Затваряне на модала при клик извън него
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.remove();
+                }
+            });
+        });
+    }
+    
+    // 3. Инжектираме оптимизацията на изображенията
+    function injectImageOptimization() {
+        // Прилагаме lazy loading на всички изображения
+        const images = document.querySelectorAll('img:not([loading])');
+        images.forEach(img => {
+            // Добавяме атрибут loading="lazy" към всички изображения
+            img.setAttribute('loading', 'lazy');
+            
+            // Добавяме decoding="async" за паралелно декодиране
+            img.setAttribute('decoding', 'async');
+            
+            // Добавяме атрибут за alt текст, ако липсва
+            if (!img.alt) {
+                const imgSrc = img.src;
+                const altText = imgSrc.split('/').pop().split('.')[0]
+                    .replace(/[_-]/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase());
+                img.alt = altText;
+            }
+        });
+        
+        // Прилагаме lazy loading на iframes (за видеа)
+        const iframes = document.querySelectorAll('iframe:not([loading])');
+        iframes.forEach(iframe => {
+            iframe.setAttribute('loading', 'lazy');
+            
+            // Добавяме title атрибут за достъпност, ако липсва
+            if (!iframe.title) {
+                iframe.title = 'Видео съдържание';
+            }
+        });
+    }
+    
+    // 4. Инжектираме компонента за демонстрация
+    function injectDemoComponent() {
+        // Проверяваме дали вече има добавен компонент
+        if (document.querySelector('.demo-component')) {
+            return;
+        }
+        
+        const demoComponent = document.createElement('div');
+        demoComponent.className = 'demo-component';
+        demoComponent.innerHTML = `
+            <div class="demo-trigger">
+                <button class="demo-trigger-button">
+                    <i class="fas fa-rocket"></i> Поискай демо
+                </button>
+            </div>
+            
+            <div class="demo-form-container">
+                <div class="demo-form-content">
+                    <button class="demo-close-button">&times;</button>
+                    <h3>Попълни заявка за безплатно демо</h3>
+                    <p>Само за 24 часа ще получиш персонализиран чатбот, специално създаден за твоя бизнес</p>
+                    
+                    <form class="demo-form" id="demoForm">
+                        <div class="form-group">
+                            <label for="name">Вашето име <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required placeholder="Име и фамилия">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Имейл <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="email@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+359 88 888 8888">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">Компания <span class="required">*</span></label>
+                            <input type="text" id="company" name="company" required placeholder="Име на компанията">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="website">Уебсайт <span class="required">*</span></label>
+                            <input type="url" id="website" name="website" required placeholder="https://www.yourwebsite.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="platform">Предпочитана платформа</label>
+                            <select id="platform" name="platform">
+                                <option value="website">Уебсайт</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="multiple">Няколко платформи</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Разкажете малко за вашия бизнес</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Опишете с какво се занимавате, колко продукта имате и какви са основните въпроси на клиентите ви"></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <label for="consent">Съгласен съм с <a href="privacy-policy.html" target="_blank">политиката за поверителност</a> и <a href="terms.html" target="_blank">общите условия</a> <span class="required">*</span></label>
+                        </div>
+                        
+                        <button type="submit" class="demo-submit-button">Изпрати заявка</button>
+                        <p class="demo-form-note">Отнема по-малко от 1 минута</p>
+                    </form>
+                    
+                    <div class="demo-success-message">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Благодарим за заявката!</h3>
+                        <p>Вашата заявка беше успешно получена. Ще се свържем с вас в рамките на 24 часа, за да ви предоставим вашето персонализирано демо.</p>
+                        <button class="demo-success-close">Затвори</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Добавяме стиловете за компонента
+        const demoStyles = document.createElement('style');
+        demoStyles.textContent = `
+            /* Стилове за демо компонента */
+            .demo-trigger {
+                position: fixed;
+                bottom: 85px;
+                right: 20px;
+                z-index: 999;
+            }
+            
+            .demo-trigger-button {
+                background-color: #0052CC;
+                color: white;
+                border: none;
+                border-radius: 30px;
+                padding: 10px 20px;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
+            
+            .demo-trigger-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+                background-color: #0046ad;
+            }
+            
+            .demo-form-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                z-index: 1000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .demo-form-container.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .demo-form-content {
+                background-color: white;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 500px;
+                max-height: 90vh;
+                overflow-y: auto;
+                padding: 30px;
+                position: relative;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .demo-close-button {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                color: #1E293B;
+                cursor: pointer;
+            }
+            
+            .demo-form-content h3 {
+                margin-top: 0;
+                color: #0052CC;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .demo-form-content p {
+                margin-bottom: 20px;
+                color: #666;
+            }
+            
+            .demo-form .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .demo-form label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+            
+            .demo-form .required {
+                color: #FF4757;
+            }
+            
+            .demo-form input,
+            .demo-form select,
+            .demo-form textarea {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #dee2e6;
+                border-radius: 4px;
+                font-family: inherit;
+                font-size: 1rem;
+            }
+            
+            .demo-form textarea {
+                resize: vertical;
+            }
+            
+            .demo-form .checkbox-group {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .demo-form .checkbox-group input {
+                width: auto;
+                margin-top: 4px;
+            }
+            
+            .demo-form .checkbox-group label {
+                font-weight: normal;
+                margin-bottom: 0;
+                font-size: 0.9rem;
+            }
+            
+            .demo-submit-button {
+                background-color: #FF4757;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 12px 20px;
+                font-weight: 600;
+                width: 100%;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: background-color 0.3s;
+            }
+            
+            .demo-submit-button:hover {
+                background-color: #E03E48;
+            }
+            
+            .demo-form-note {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #777;
+                margin-top: 10px;
+            }
+            
+            .demo-success-message {
+                text-align: center;
+                display: none;
+            }
+            
+            .demo-success-message.active {
+                display: block;
+            }
+            
+            .success-icon {
+                font-size: 4rem;
+                color: #22C55E;
+                margin-bottom: 20px;
+            }
+            
+            .demo-success-close {
+                background-color: #0052CC;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                font-weight: 600;
+                cursor: pointer;
+                margin-top: 20px;
+            }
+            
+            @media (max-width: 768px) {
+                .demo-trigger {
+                    bottom: 75px;
+                }
+                
+                .demo-form-content {
+                    padding: 20px;
+                }
+            }
+            
+            .demo-form input.error,
+            .demo-form select.error,
+            .demo-form textarea.error {
+                border-color: #FF4757;
+                background-color: rgba(255, 71, 87, 0.05);
+            }
+        `;
+        
+        // Добавяме елементите в DOM
+        document.head.appendChild(demoStyles);
+        document.body.appendChild(demoComponent);
+        
+        // Добавяме функционалност
+        const demoTriggerButton = demoComponent.querySelector('.demo-trigger-button');
+        const demoFormContainer = demoComponent.querySelector('.demo-form-container');
+        const demoCloseButton = demoComponent.querySelector('.demo-close-button');
+        const demoForm = demoComponent.querySelector('.demo-form');
+        const demoSuccessMessage = demoComponent.querySelector('.demo-success-message');
+        const demoSuccessClose = demoComponent.querySelector('.demo-success-close');
+        
+        // Отваряне на формата
+        demoTriggerButton.addEventListener('click', function() {
+            demoFormContainer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Предотвратяваме скролване на страницата
+        });
+        
+        // Затваряне на формата
+        demoCloseButton.addEventListener('click', function() {
+            demoFormContainer.classList.remove('active');
+            document.body.style.overflow = ''; // Възстановяваме скролването
+        });
+        
+        // Затваряне при клик извън формата
+        demoFormContainer.addEventListener('click', function(e) {
+            if (e.target === demoFormContainer) {
+                demoFormContainer.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Обработка на изпращане на формата
+        demoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Тук би трябвало да има AJAX заявка към вашия сървър
+            // За демонстрационни цели просто показваме съобщението за успех
+            
+            // Симулираме заявка към сървъра
+            demoForm.style.display = 'none';
+            demoSuccessMessage.classList.add('active');
+            
+            // Изчистваме формата
+            demoForm.reset();
+        });
+        
+        // Затваряне след успешно изпращане
+        demoSuccessClose.addEventListener('click', function() {
+            demoFormContainer.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Скриваме съобщението и показваме формата отново (за бъдещи отваряния)
+            setTimeout(() => {
+                demoSuccessMessage.classList.remove('active');
+                demoForm.style.display = 'block';
+            }, 300);
+        });
+        
+        // Валидация на формата
+        const inputs = demoForm.querySelectorAll('input[required], select[required], textarea[required]');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value.trim() !== '') {
+                    this.classList.remove('error');
+                }
+            });
+            
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '' && this.required) {
+                    this.classList.add('error');
+                } else {
+                    this.classList.remove('error');
+                }
+            });
+        });
+    }
+    
+    // 5. Инжектираме подобрения за потребителското изживяване
+    function injectEnhancedUX() {
+        // Гладко скролване до секции при клик върху навигационни връзки
+        const smoothScrollLinks = document.querySelectorAll('a[href^="#"]:not(.no-smooth-scroll)');
+        smoothScrollLinks.forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Добавяме клас за активна връзка в навигацията
+                    smoothScrollLinks.forEach(link => link.classList.remove('active-nav-link'));
+                    this.classList.add('active-nav-link');
+                    
+                    // Плавно скролване до елемента
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Отстъп за фиксираното меню
+                        behavior: 'smooth'
+                    });
+                    
+                    // Обновяваме URL-а без презареждане
+                    history.pushState(null, null, targetId);
+                }
+            });
+        });
+        
+        // Добавяме анимации при скролване
+        const animateElements = document.querySelectorAll('.fade-in');
+        
+        // Създаваме observer
+        if ('IntersectionObserver' in window) {
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        
+                        // Ако искаме анимацията да се изпълни само веднъж
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15 // Елементът е видим, когато поне 15% от него е в изгледа
+            });
+            
+            animateElements.forEach(element => {
+                animationObserver.observe(element);
+            });
+        } else {
+            // Fallback за браузъри, които не поддържат IntersectionObserver
+            animateElements.forEach(element => {
+                element.classList.add('active');
+            });
+        }
+        
+        // Функция за активна връзка в менюто според видимата секция
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPosition = window.scrollY + 100; // Малко отстъп
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === '#' + sectionId) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNavLink);
+        
+        // Добавяме "Връщане в началото" бутон
+        const backToTopButton = document.createElement('button');
+        backToTopButton.className = 'back-to-top';
+        backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        backToTopButton.setAttribute('aria-label', 'Връщане в началото на страницата');
+        backToTopButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #FF4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        `;
+        document.body.appendChild(backToTopButton);
+        
+        // Показваме/скриваме бутона в зависимост от позицията на скролване
+        function toggleBackToTopButton() {
+            if (window.scrollY > 300) {
+                backToTopButton.style.opacity = '1';
+                backToTopButton.style.visibility = 'visible';
+            } else {
+                backToTopButton.style.opacity = '0';
+                backToTopButton.style.visibility = 'hidden';
+            }
+        }
+        
+        window.addEventListener('scroll', toggleBackToTopButton);
+        
+        // Скролване към началото при клик върху бутона
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Извикваме всички функции за инжектиране
+    document.addEventListener('DOMContentLoaded', function() {
+        injectImprovedSEO();
+        injectCookieConsent();
+        injectImageOptimization();
+        injectDemoComponent();
+        injectEnhancedUX();
+    });
+})();

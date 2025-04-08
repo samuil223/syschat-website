@@ -1,0 +1,459 @@
+// Код за подобрено потребителско изживяване
+document.addEventListener('DOMContentLoaded', function() {
+    // Гладко скролване до секции при клик върху навигационни връзки
+    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]:not(.no-smooth-scroll)');
+    smoothScrollLinks.forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Добавяме клас за активна връзка в навигацията
+                smoothScrollLinks.forEach(link => link.classList.remove('active-nav-link'));
+                this.classList.add('active-nav-link');
+                
+                // Плавно скролване до елемента
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Отстъп за фиксираното меню
+                    behavior: 'smooth'
+                });
+                
+                // Обновяваме URL-а без презареждане
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+    
+    // Засичаме секцията, която е видима на екрана
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPosition = window.scrollY + 100; // Малко отстъп
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionBottom = sectionTop + sectionHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                const correspondingLink = document.querySelector(`a[href="#${section.id}"]`);
+                if (correspondingLink) {
+                    smoothScrollLinks.forEach(link => link.classList.remove('active-nav-link'));
+                    correspondingLink.classList.add('active-nav-link');
+                }
+            }
+        });
+    }
+    
+    // Обновяваме активната връзка при скролване
+    window.addEventListener('scroll', updateActiveNavLink);
+    
+    // Тригер на анимации при скролване
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    
+    // Създаваме observer
+    if ('IntersectionObserver' in window) {
+        const animationObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    
+                    // Вземаме типа анимация от data атрибут или използваме "fade-in" по подразбиране
+                    const animationType = element.dataset.animation || 'fade-in';
+                    element.classList.add(animationType);
+                    
+                    // Добавяме клас active за CSS транзициите
+                    element.classList.add('active');
+                    
+                    // Ако искаме анимацията да се изпълни само веднъж
+                    if (element.dataset.animateOnce !== 'false') {
+                        observer.unobserve(element);
+                    }
+                } else if (element.dataset.animateOnce === 'false') {
+                    // Ако искаме анимацията да се изпълнява всеки път
+                    element.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.15 // Елементът е видим, когато поне 15% от него е в изгледа
+        });
+        
+        animateElements.forEach(element => {
+            animationObserver.observe(element);
+        });
+    } else {
+        // Fallback за браузъри, които не поддържат IntersectionObserver
+        animateElements.forEach(element => {
+            element.classList.add('active');
+        });
+    }
+    
+    // Добавяме стилове за анимациите
+    const animationStyles = document.createElement('style');
+    animationStyles.textContent = `
+        /* Базови стилове за анимации */
+        .animate-on-scroll {
+            transition: all 0.6s ease-out;
+        }
+        
+        /* Основни анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+        
+        .slide-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-right {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+        
+        .slide-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        .zoom-in.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .zoom-out {
+            opacity: 0;
+            transform: scale(1.2);
+        }
+        
+        .zoom-out.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .flip-in {
+            opacity: 0;
+            transform: perspective(500px) rotateY(90deg);
+        }
+        
+        .flip-in.active {
+            opacity: 1;
+            transform: perspective(500px) rotateY(0);
+        }
+        
+        /* Времеви закъснения за каскадни анимации */
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            transition-delay: 0.3s;
+        }
+        
+        .delay-400 {
+            transition-delay: 0.4s;
+        }
+        
+        .delay-500 {
+            transition-delay: 0.5s;
+        }
+        
+        /* Активна връзка в навигацията */
+        .active-nav-link {
+            color: var(--secondary) !important;
+            position: relative;
+        }
+        
+        .active-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: transform 0.3s ease;
+            transform: scaleX(1);
+        }
+    `;
+    
+    document.head.appendChild(animationStyles);
+    
+    // Функционалност за закрепено меню при скрол
+    const header = document.querySelector('.header');
+    let headerHeight = header ? header.offsetHeight : 0;
+    let lastScrollTop = 0;
+    
+    function handleScroll() {
+        const currentScrollTop = window.scrollY;
+        
+        // Добавяме клас scrolled при скролване надолу
+        if (currentScrollTop > headerHeight) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        // Скриваме/показваме меню при скролване нагоре/надолу
+        if (currentScrollTop > lastScrollTop && currentScrollTop > headerHeight) {
+            // Скролване надолу - скриваме меню
+            header.classList.add('header-hidden');
+        } else {
+            // Скролване нагоре - показваме меню
+            header.classList.remove('header-hidden');
+        }
+        
+        lastScrollTop = currentScrollTop;
+    }
+    
+    // Добавяме стилове за закрепено меню
+    if (header) {
+        const headerStyles = document.createElement('style');
+        headerStyles.textContent = `
+            .header {
+                transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            .header.scrolled {
+                background-color: rgba(0, 0, 0, 0.95);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .header.header-hidden {
+                transform: translateY(-100%);
+            }
+        `;
+        
+        document.head.appendChild(headerStyles);
+        window.addEventListener('scroll', handleScroll);
+    }
+    
+    // Добавяме counter-up анимации за числа
+    const counterElements = document.querySelectorAll('.counter');
+    
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = parseInt(element.getAttribute('data-duration') || 2000);
+        const start = 0;
+        const increment = target / (duration / 16); // 16ms за 60fps
+        
+        let current = start;
+        const timer = setInterval(() => {
+            current += increment;
+            element.textContent = Math.floor(current).toLocaleString();
+            
+            if (current >= target) {
+                element.textContent = target.toLocaleString();
+                clearInterval(timer);
+            }
+        }, 16);
+    }
+    
+    if ('IntersectionObserver' in window) {
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        counterElements.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+    }
+    
+    // Добавяме функционалност за табове
+    const tabContainers = document.querySelectorAll('.tab-container');
+    
+    tabContainers.forEach(container => {
+        const tabLinks = container.querySelectorAll('.tab-link');
+        const tabContents = container.querySelectorAll('.tab-content');
+        
+        // Инициализираме първия таб като активен
+        if (tabLinks.length > 0 && tabContents.length > 0) {
+            tabLinks[0].classList.add('active');
+            tabContents[0].classList.add('active');
+        }
+        
+        tabLinks.forEach((link, index) => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Премахваме активния клас от всички табове
+                tabLinks.forEach(tabLink => tabLink.classList.remove('active'));
+                tabContents.forEach(tabContent => tabContent.classList.remove('active'));
+                
+                // Активираме кликнатия таб
+                this.classList.add('active');
+                tabContents[index].classList.add('active');
+            });
+        });
+    });
+    
+    // Функционалност за mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            this.classList.toggle('active');
+            
+            // Променяме aria-expanded атрибута за достъпност
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+        });
+        
+        // Затваряме менюто при клик върху линк
+        const mobileNavLinks = navMenu.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+        
+        // Затваряме менюто при клик извън него
+        document.addEventListener('click', function(event) {
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+    
+    // Добавяме "Връщане в началото" бутон
+    const backToTopButton = document.createElement('button');
+    backToTopButton.className = 'back-to-top';
+    backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    backToTopButton.setAttribute('aria-label', 'Връщане в началото на страницата');
+    document.body.appendChild(backToTopButton);
+    
+    // Стилове за бутона
+    const backToTopStyles = document.createElement('style');
+    backToTopStyles.textContent = `
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+        }
+    `;
+    
+    document.head.appendChild(backToTopStyles);
+    
+    // Показваме/скриваме бутона в зависимост от позицията на скролване
+    function toggleBackToTopButton() {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    }
+    
+    window.addEventListener('scroll', toggleBackToTopButton);
+    
+    // Скролване към началото при клик върху бутона
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Функционалност за предотвратяване на duplicate form submissions
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // Проверяваме дали формата вече се изпраща
+            if (this.classList.contains('submitting')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Маркираме формата като изпращаща се
+            this.classList.add('submitting');
+            
+            // Деактивираме бутона за изпращане
+            const submitButton = this.querySelector('[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+                
+                // Запазваме оригиналния текст на бутона
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Изпращане...';
+                
+                // Възстановяваме състоянието след определено време (ако изпращането не е завършило)
+                setTimeout(() => {
+                    if (this.classList.contains('submitting')) {
+                        this.classList.remove('submitting');
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalText;
+                    }
+                }, 5000);
+            }
+        });
+    });
+});

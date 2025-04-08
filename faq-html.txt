@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - Често задавани въпроси</title>
+    <meta name="description" content="Отговори на често задавани въпроси за SysChat - интелигентният чатбот асистент за вашия онлайн магазин.">
+    <meta name="keywords" content="чатбот, онлайн магазин, часто задавани въпроси, FAQ, поддръжка">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Цветове */
+        :root {
+            --primary: #0052CC;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --white: #ffffff;
+        }
+
+        /* Базов стил */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(180deg, #000 0%, #08235C 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .faq-category {
+            padding: 10px 20px;
+            background-color: var(--gray-100);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .faq-category:hover,
+        .faq-category.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .faq-items {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: var(--gray-100);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background-color: var(--gray-100);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-text {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Чатбот виджет */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-icon {
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Преходи и анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .footer-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .footer-btn {
+            padding: 10px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .footer-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #dee2e6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .faq-category {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40" alt="SysChat Logo">
+                    SysChat
+                </a>
+                <nav class="nav-menu">
+                    <a href="platforms.html" class="nav-item">Платформи</a>
+                    <a href="index.html#pricing" class="nav-item">Цени</a>
+                    <a href="index.html#contact" class="nav-item">Контакти</a>
+                    <a href="index.html#demo" class="btn">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Често задавани въпроси</h1>
+            <p class="page-subtitle">Отговорите на най-често задаваните въпроси за SysChat и как може да помогне на вашия бизнес.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-categories">
+                <div class="faq-category active" data-category="all">Всички</div>
+                <div class="faq-category" data-category="general">Общи</div>
+                <div class="faq-category" data-category="technical">Технически</div>
+                <div class="faq-category" data-category="pricing">Цени</div>
+                <div class="faq-category" data-category="integration">Интеграция</div>
+            </div>
+            
+            <div class="faq-items">
+                <!-- Общи въпроси -->
+                <div class="faq-item fade-in" data-category="general">
+                    <div class="faq-question">
+                        <span>Какво точно прави SysChat?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SysChat е интелигентен асистент (чатбот), който помага на вашия онлайн магазин, като автоматично отговаря на въпроси от клиентите, предоставя информация за продуктите и помага с процеса на покупка. Работи 24/7, без нужда от почивка, и може да поема хиляди клиентски запитвания едновременно.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="general">
+                    <div class="faq-question">
+                        <span>Какви са предимствата на използването на SysChat?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Основните предимства включват:</p>
+                        <ul>
+                            <li>24/7 обслужване на клиентите</li>
+                            <li>Мигновени отговори без чакане</li>
+                            <li>Намаляване на разходите за персонал</li>
+                            <li>Повишаване на конверсиите и продажбите</li>
+                            <li>Подобрено изживяване на клиентите</li>
+                            <li>Събиране на ценни данни за клиентските нужди</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="general">
+                    <div class="faq-question">
+                        <span>Колко сложен е за използване?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SysChat е проектиран да бъде изключително лесен за използване. Не се изискват технически познания - ние създаваме, настройваме и поддържаме чатбота вместо вас. Вие само ни предоставяте информация за вашия бизнес, а ние се грижим за всичко останало.</p>
+                    </div>
+                </div>
+                
+                <!-- Технически въпроси -->
+                <div class="faq-item fade-in" data-category="technical">
+                    <div class="faq-question">
+                        <span>Как SysChat разбира запитванията на клиентите?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SysChat използва съвременни технологии за обработка на естествен език (NLP) и изкуствен интелект, за да разбира въпросите на клиентите, независимо как са формулирани. Системата се обучава с информация за вашите продукти и услуги, за да може да дава точни и подходящи отговори.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="technical">
+                    <div class="faq-question">
+                        <span>Може ли да се интегрира с моята система за управление на съдържанието?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, SysChat може да се интегрира с повечето популярни CMS и платформи за електронна търговия, включително WordPress, Shopify, WooCommerce, Magento, PrestaShop и други. Също така работи с Facebook Messenger, Instagram, WhatsApp и други комуникационни канали.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="technical">
+                    <div class="faq-question">
+                        <span>Какви езици поддържа SysChat?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>SysChat поддържа български език и може да комуникира свободно с вашите клиенти. При нужда можем да добавим и поддръжка за допълнителни езици като английски, руски, немски и други.</p>
+                    </div>
+                </div>
+                
+                <!-- Въпроси за цени -->
+                <div class="faq-item fade-in" data-category="pricing">
+                    <div class="faq-question">
+                        <span>Колко струва SysChat?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Цените на SysChat зависят от размера на вашия бизнес, броя продукти, очаквания обем на комуникация и необходимите интеграции. Предлагаме персонализирани решения, съобразени с вашите нужди. Първо създаваме безплатно демо, за да видите как работи, а след това получавате конкретна оферта.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="pricing">
+                    <div class="faq-question">
+                        <span>Имате ли безплатен план?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Предлагаме безплатно демо, което ви позволява да тествате SysChat с вашия бизнес, без никакви ангажименти. Това ви дава възможност да оцените стойността и ползата преди да вземете решение за покупка.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="pricing">
+                    <div class="faq-question">
+                        <span>Има ли дългосрочен договор?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Предлагаме гъвкави планове - както месечни абонаменти, така и годишни договори с отстъпки. Всички планове идват с 14-дневна гаранция за връщане на парите, така че няма риск при изпробване на услугата.</p>
+                    </div>
+                </div>
+                
+                <!-- Въпроси за интеграция -->
+                <div class="faq-item fade-in" data-category="integration">
+                    <div class="faq-question">
+                        <span>Колко време отнема интегрирането на SysChat?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Обикновено създаването на персонализиран чатбот за вашия бизнес отнема около 24 часа. След като одобрите демото, интеграцията във вашия сайт или социални медии може да бъде направена в рамките на няколко часа.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="integration">
+                    <div class="faq-question">
+                        <span>Как да добавя SysChat към моя уебсайт?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Добавянето на SysChat към вашия уебсайт е изключително лесно. Ние ви предоставяме прост код, който трябва да копирате и поставите във вашия сайт. Ако нямате технически познания, нашият екип може да направи интеграцията вместо вас, без допълнителни такси.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in" data-category="integration">
+                    <div class="faq-question">
+                        <span>Как се интегрира SysChat със социални мрежи?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>За интеграция със социални мрежи като Facebook и Instagram, ние се нуждаем само от административен достъп до бизнес страницата ви. Нашият екип се грижи за цялата техническа настройка. За WhatsApp, ще ви помогнем да настроите WhatsApp Business API и да свържете SysChat с вашия акаунт.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2 class="contact-title">Не намирате отговора, който търсите?</h2>
+            <p class="contact-text">Свържете се с нас директно и ще ви помогнем с всякакви допълнителни въпроси, които имате за SysChat.</p>
+            <a href="index.html#contact" class="btn">Свържете се с нас</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">За нас</a></li>
+                        <li class="footer-link"><a href="#">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="#">Поверителност</a></li>
+                        <li class="footer-link"><a href="#">Общи условия</a></li>
+                        <li class="footer-link"><a href="#">Бисквитки</a></li>
+                        <li class="footer-link"><a href="#">Политика за обработване на личните данни</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Абонирайте се за новини</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот виджет -->
+    <div class="chatbot-widget">
+        <div class="chatbot-bubble">
+            <i class="fas fa-comment chatbot-icon"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Функционалност за FAQ акордеон
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Затваряне на всички отворени отговори
+                document.querySelectorAll('.faq-question').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Отваряне на текущия отговор, ако е бил затворен
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+        
+        // Филтриране на FAQ по категория
+        const categories = document.querySelectorAll('.faq-category');
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                const selectedCategory = category.getAttribute('data-category');
+                
+                // Активиране на избраната категория
+                categories.forEach(cat => cat.classList.remove('active'));
+                category.classList.add('active');
+                
+                // Филтриране на въпросите
+                faqItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (selectedCategory === 'all' || selectedCategory === itemCategory) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Анимация за появяване на елементи
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        // Проверка при първоначално зареждане
+        window.addEventListener('load', checkFade);
+        // Проверка при скролване
+        window.addEventListener('scroll', checkFade);
+        
+        // Плавно скролване
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Симулация на чатбот отваряне
+        const chatbotBubble = document.querySelector('.chatbot-bubble');
+        if (chatbotBubble) {
+            chatbotBubble.addEventListener('click', function() {
+                alert('Чатбот функционалността ще бъде интегрирана тук!');
+            });
+        }
+    </script>
+</body>
+</html>

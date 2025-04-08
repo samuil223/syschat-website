@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - Политика за обработване на личните данни (GDPR)</title>
+    <meta name="description" content="Информация за това как SysChat обработва вашите лични данни в съответствие с GDPR.">
+    <meta name="keywords" content="GDPR, лични данни, защита на данните, обработване на данни, SysChat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Цветове */
+        :root {
+            --primary: #0052CC;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --white: #ffffff;
+        }
+
+        /* Базов стил */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(180deg, #000 0%, #08235C 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .gdpr-section {
+            margin-bottom: 40px;
+        }
+        
+        .gdpr-section h2 {
+            color: var(--primary);
+            margin-top: 40px;
+        }
+        
+        .gdpr-section h3 {
+            margin-top: 30px;
+        }
+        
+        .gdpr-list {
+            margin-bottom: 20px;
+        }
+        
+        .gdpr-list li {
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid var(--gray-300);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--gray-100);
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--gray-100);
+        }
+        
+        /* Чатбот виджет */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-bubble:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-icon {
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #dee2e6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: white;
+        }
+        
+        .footer-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .footer-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .footer-btn {
+            padding: 10px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .footer-checkbox {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #dee2e6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="https://via.placeholder.com/40" alt="SysChat Logo">
+                    SysChat
+                </a>
+                <nav class="nav-menu">
+                    <a href="platforms.html" class="nav-item">Платформи</a>
+                    <a href="index.html#pricing" class="nav-item">Цени</a>
+                    <a href="index.html#contact" class="nav-item">Контакти</a>
+                    <a href="index.html#demo" class="btn">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Политика за обработване на личните данни</h1>
+            <p class="page-subtitle">Информация в съответствие с изискванията на Общия регламент за защита на данните (GDPR)</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="content-container">
+                <div class="gdpr-section">
+                    <p>Последна актуализация: 08.04.2025 г.</p>
+                    <p>SysChat е ангажирана със защитата на личните данни на своите клиенти и потребители в съответствие с Общия регламент за защита на данните (GDPR) и други приложими закони за защита на данните.</p>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>1. Администратор на лични данни</h2>
+                    <p>В качеството си на администратор на лични данни, SysChat е отговорна за обработката на вашите лични данни:</p>
+                    <ul class="gdpr-list">
+                        <li><strong>Име на администратора:</strong> SysChat, предоставяно от Cardd</li>
+                        <li><strong>Адрес:</strong> [Вашият официален адрес]</li>
+                        <li><strong>Имейл за контакт:</strong> <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>2. Длъжностно лице по защита на данните (DPO)</h2>
+                    <p>Нашето длъжностно лице по защита на данните може да бъде контактувано на следния адрес:</p>
+                    <ul class="gdpr-list">
+                        <li><strong>Имейл:</strong> <a href="mailto:dpo@systemaicare.com">dpo@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>3. Категории лични данни, които обработваме</h2>
+                    <p>В зависимост от начина, по който взаимодействате с нас, можем да обработваме следните категории лични данни:</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория данни</th>
+                                <th>Примери</th>
+                                <th>Цел на обработката</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Идентификационни данни</td>
+                                <td>Име, фамилия, имейл адрес, телефонен номер</td>
+                                <td>Създаване и управление на акаунт, комуникация</td>
+                            </tr>
+                            <tr>
+                                <td>Бизнес данни</td>
+                                <td>Име на компания, позиция, служебен имейл</td>
+                                <td>Предоставяне на услуги, фактуриране</td>
+                            </tr>
+                            <tr>
+                                <td>Данни за плащане</td>
+                                <td>Информация за банкова сметка, данни за кредитна карта</td>
+                                <td>Обработка на плащания</td>
+                            </tr>
+                            <tr>
+                                <td>Технически данни</td>
+                                <td>IP адрес, тип и версия на браузъра, операционна система</td>
+                                <td>Подобряване на услугите, анализ на употребата</td>
+                            </tr>
+                            <tr>
+                                <td>Данни за използване</td>
+                                <td>Информация за посещения на сайта, функции, които използвате</td>
+                                <td>Анализ и подобряване на услугите</td>
+                            </tr>
+                            <tr>
+                                <td>Комуникационни данни</td>
+                                <td>Съдържание на имейли, запитвания</td>
+                                <td>Отговаряне на запитвания, поддръжка</td>
+                            </tr>
+                            <tr>
+                                <td>Данни от чатбот разговори</td>
+                                <td>Текст на съобщения между клиенти и чатбот</td>
+                                <td>Обучение на чатбота, подобряване на отговорите</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>4. Правно основание за обработка</h2>
+                    <p>Обработваме вашите лични данни на следните правни основания:</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Правно основание</th>
+                                <th>Описание</th>
+                                <th>Примери</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Изпълнение на договор</td>
+                                <td>Когато обработката е необходима за изпълнение на договор с вас или за предприемане на стъпки по ваше искане преди сключване на договор</td>
+                                <td>Създаване на чатбот за вашия бизнес, обработка на плащания</td>
+                            </tr>
+                            <tr>
+                                <td>Законни интереси</td>
+                                <td>Когато обработката е необходима за нашите законни интереси или тези на трета страна, освен когато вашите интереси или основни права и свободи имат предимство пред тези интереси</td>
+                                <td>Подобряване на нашите услуги, анализ на използването, маркетинг</td>
+                            </tr>
+                            <tr>
+                                <td>Съгласие</td>
+                                <td>Когато сте дали изрично съгласие за обработката на вашите лични данни за една или повече конкретни цели</td>
+                                <td>Изпращане на маркетингови съобщения, бюлетини</td>
+                            </tr>
+                            <tr>
+                                <td>Законово задължение</td>
+                                <td>Когато обработката е необходима за спазване на законово задължение, което се прилага за нас</td>
+                                <td>Счетоводни и данъчни задължения</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>5. Цели на обработката</h2>
+                    <p>Обработваме вашите лични данни за следните цели:</p>
+                    
+                    <h3>5.1. Предоставяне на услуги</h3>
+                    <ul class="gdpr-list">
+                        <li>Създаване и управление на вашия акаунт</li>
+                        <li>Предоставяне на чатбот услуги и интеграции</li>
+                        <li>Обработка на плащания и фактуриране</li>
+                        <li>Предоставяне на клиентска поддръжка</li>
+                    </ul>
+                    
+                    <h3>5.2. Подобряване на услугите</h3>
+                    <ul class="gdpr-list">
+                        <li>Анализ на използването на нашите услуги</li>
+                        <li>Подобряване на функционалностите на чатбота</li>
+                        <li>Обучение на изкуствения интелект за по-добри отговори</li>
+                        <li>Разработване на нови функционалности</li>
+                    </ul>
+                    
+                    <h3>5.3. Комуникация</h3>
+                    <ul class="gdpr-list">
+                        <li>Отговаряне на ваши запитвания</li>
+                        <li>Изпращане на важна информация за услугите</li>
+                        <li>Изпращане на маркетингови съобщения (с ваше съгласие)</li>
+                    </ul>
+                    
+                    <h3>5.4. Спазване на законови задължения</h3>
+                    <ul class="gdpr-list">
+                        <li>Спазване на счетоводни и данъчни изисквания</li>
+                        <li>Отговаряне на законови запитвания от публични органи</li>
+                    </ul>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>6. Получатели на лични данни</h2>
+                    <p>Можем да споделяме вашите лични данни със следните категории получатели:</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория получатели</th>
+                                <th>Цел на споделянето</th>
+                                <th>Местоположение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Доставчици на услуги</td>
+                                <td>Компании, които ни помагат с хостинг, облачни услуги, обработка на плащания, анализ на данни</td>
+                                <td>ЕС и страни с адекватно ниво на защита</td>
+                            </tr>
+                            <tr>
+                                <td>Бизнес партньори</td>
+                                <td>Партньори, с които предоставяме съвместни услуги или интеграции</td>
+                                <td>ЕС и страни с адекватно ниво на защита</td>
+                            </tr>
+                            <tr>
+                                <td>Публични органи</td>
+                                <td>Когато се изисква от закона или съдебна заповед</td>
+                                <td>Предимно в България</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p>Ние не продаваме вашите лични данни на трети страни. Когато споделяме данни с трети страни, правим това само за целите, описани в тази политика, и при условие че са приложени подходящи гаранции за защита на данните.</p>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>7. Международни трансфери на данни</h2>
+                    <p>Някои от нашите доставчици на услуги могат да се намират извън Европейското икономическо пространство (ЕИП). Когато прехвърляме ваши лични данни извън ЕИП, ние гарантираме, че се прилага подобно ниво на защита, чрез една или повече от следните мерки:</p>
+                    
+                    <ul class="gdpr-list">
+                        <li>Прехвърляне на данни само към страни, които са признати от Европейската комисия като осигуряващи адекватно ниво на защита на личните данни</li>
+                        <li>Използване на специфични договори, одобрени от Европейската комисия, които дават на личните данни същата защита, каквато имат в Европа</li>
+                        <li>Прехвърляне на данни към организации, които са част от сертификационни схеми, осигуряващи подходящи гаранции за защита на данните</li>
+                    </ul>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>8. Срок на съхранение на данните</h2>
+                    <p>Ние съхраняваме вашите лични данни само толкова дълго, колкото е необходимо за целите, за които са събрани, или за да спазим законовите изисквания.</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория данни</th>
+                                <th>Срок на съхранение</th>
+                                <th>Основание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Данни на клиента (акаунт)</td>
+                                <td>За периода на договора + 5 години след прекратяването му</td>
+                                <td>Изпълнение на договор, законови задължения</td>
+                            </tr>
+                            <tr>
+                                <td>Финансови данни</td>
+                                <td>10 години</td>
+                                <td>Счетоводни и данъчни изисквания</td>
+                            </tr>
+                            <tr>
+                                <td>Комуникационни данни</td>
+                                <td>3 години след последния контакт</td>
+                                <td>Законни интереси, правни претенции</td>
+                            </tr>
+                            <tr>
+                                <td>Данни от чатбот разговори</td>
+                                <td>До 2 години</td>
+                                <td>Подобряване на услугите</td>
+                            </tr>
+                            <tr>
+                                <td>Маркетингови данни</td>
+                                <td>До оттегляне на съгласието</td>
+                                <td>Съгласие</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>9. Вашите права като субект на данни</h2>
+                    <p>Съгласно GDPR, вие имате следните права относно вашите лични данни:</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Право</th>
+                                <th>Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Право на информация</td>
+                                <td>Имате право да получите ясна, прозрачна и лесно разбираема информация за това как използваме вашите лични данни</td>
+                            </tr>
+                            <tr>
+                                <td>Право на достъп</td>
+                                <td>Имате право да получите потвърждение дали обработваме вашите лични данни и да получите копие от тези данни, както и друга информация за обработката</td>
+                            </tr>
+                            <tr>
+                                <td>Право на коригиране</td>
+                                <td>Имате право да коригирате неточни лични данни или да допълните непълни лични данни</td>
+                            </tr>
+                            <tr>
+                                <td>Право на изтриване</td>
+                                <td>Имате право да поискате изтриване на вашите лични данни при определени обстоятелства (т.нар. "право да бъдеш забравен")</td>
+                            </tr>
+                            <tr>
+                                <td>Право на ограничаване на обработката</td>
+                                <td>Имате право да поискате ограничаване на обработката на вашите лични данни при определени обстоятелства</td>
+                            </tr>
+                            <tr>
+                                <td>Право на преносимост на данните</td>
+                                <td>Имате право да получите вашите лични данни в структуриран, широко използван и машинно четим формат и да ги прехвърлите на друг администратор</td>
+                            </tr>
+                            <tr>
+                                <td>Право на възражение</td>
+                                <td>Имате право да възразите срещу обработката на вашите лични данни при определени обстоятелства, особено за директен маркетинг</td>
+                            </tr>
+                            <tr>
+                                <td>Право да не бъдете обект на автоматизирано вземане на решения</td>
+                                <td>Имате право да не бъдете обект на решение, основаващо се единствено на автоматизирана обработка, включително профилиране, което поражда правни последици за вас или по подобен начин ви засяга значително</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p>За да упражните някое от тези права, моля, свържете се с нас на <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a>.</p>
+                    
+                    <p>Ние ще отговорим на вашето искане в рамките на един месец от получаването му. Този срок може да бъде удължен с още два месеца, когато е необходимо, като се взема предвид сложността и броя на исканията.</p>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>10. Право на жалба</h2>
+                    <p>Ако смятате, че обработката на вашите лични данни нарушава разпоредбите на GDPR, имате право да подадете жалба до надзорен орган по защита на данните, по-специално в държавата-членка на обичайното ви местопребиваване, място на работа или мястото на предполагаемото нарушение.</p>
+                    
+                    <p>В България компетентният надзорен орган е:</p>
+                    <p><strong>Комисия за защита на личните данни</strong></p>
+                    <p>Адрес: бул. „Проф. Цветан Лазаров" № 2, София 1592, България</p>
+                    <p>Телефон: +359 2 915 3580</p>
+                    <p>Уебсайт: <a href="https://www.cpdp.bg/" target="_blank">https://www.cpdp.bg/</a></p>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>11. Мерки за сигурност</h2>
+                    <p>Ние прилагаме подходящи технически и организационни мерки, за да гарантираме ниво на сигурност, съответстващо на риска, включително:</p>
+                    
+                    <ul class="gdpr-list">
+                        <li>Криптиране на лични данни, когато е подходящо</li>
+                        <li>Способност за гарантиране на постоянна поверителност, цялостност, наличност и устойчивост на системите и услугите за обработване</li>
+                        <li>Способност за своевременно възстановяване на наличността и достъпа до личните данни в случай на физически или технически инцидент</li>
+                        <li>Процес на редовно изпитване, преценяване и оценка на ефективността на техническите и организационните мерки</li>
+                        <li>Редовно обучение на персонала относно защитата на данните и сигурността на информацията</li>
+                    </ul>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>12. Уведомяване за нарушения на сигурността</h2>
+                    <p>В случай на нарушение на сигурността на личните данни, което е вероятно да доведе до риск за правата и свободите на физическите лица, ние ще уведомим компетентния надзорен орган без ненужно забавяне и, когато е възможно, не по-късно от 72 часа след като сме узнали за нарушението.</p>
+                    
+                    <p>Когато нарушението на сигурността на личните данни е вероятно да доведе до висок риск за правата и свободите на физическите лица, ние ще уведомим засегнатите лица без ненужно забавяне, освен ако не са приложими някои от изключенията, предвидени в GDPR.</p>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>13. Промени в политиката за защита на личните данни</h2>
+                    <p>Ние можем периодично да актуализираме тази политика, за да отразим промени в нашите практики за обработка на данни или промени в приложимото законодателство. Препоръчваме ви редовно да преглеждате тази политика.</p>
+                    
+                    <p>Ако направим съществени промени в начина, по който обработваме вашите лични данни, ще ви уведомим чрез публикуване на видимо известие на нашия уебсайт или чрез изпращане на директно съобщение.</p>
+                </div>
+                
+                <div class="gdpr-section">
+                    <h2>14. Контакт</h2>
+                    <p>Ако имате въпроси или коментари относно тази политика или нашите практики за защита на данните, моля, свържете се с нас:</p>
+                    
+                    <p><strong>SysChat</strong></p>
+                    <p>Имейл: <a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></p>
+                    <p>Длъжностно лице по защита на данните: <a href="mailto:dpo@systemaicare.com">dpo@systemaicare.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="about-us.html">За нас</a></li>
+                        <li class="footer-link"><a href="faq.html">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="privacy-policy.html">Поверителност</a></li>
+                        <li class="footer-link"><a href="terms.html">Общи условия</a></li>
+                        <li class="footer-link"><a href="cookies.html">Бисквитки</a></li>
+                        <li class="footer-link"><a href="gdpr.html">Политика за обработване на личните данни</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Абонирайте се за новини</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот виджет -->
+    <div class="chatbot-widget">
+        <div class="chatbot-bubble">
+            <i class="fas fa-comment chatbot-icon"></i>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Симулация на чатбот отваряне
+        const chatbotBubble = document.querySelector('.chatbot-bubble');
+        if (chatbotBubble) {
+            chatbotBubble.addEventListener('click', function() {
+                alert('Чатбот функционалността ще бъде интегрирана тук!');
+            });
+        }
+    </script>
+</body>
+</html>
