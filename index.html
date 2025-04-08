@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysChat - Асистент за онлайн магазини</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0052CC;
+            --primary-dark: #003D99;
+            --primary-light: #E0EAFF;
+            --secondary: #FF4757;
+            --secondary-hover: #E03E48;
+            --dark: #1E293B;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --white: #ffffff;
+            --gradient-blue: linear-gradient(135deg, #0052CC 0%, #0079FF 100%);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --border-radius-sm: 6px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 20px;
+            --border-radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: var(--border-radius-md);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            color: var(--white);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            border-radius: var(--border-radius-lg);
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark);
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: var(--gradient-blue);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .problem-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .problem-text {
+            flex: 1;
+        }
+
+        .problem-image {
+            flex: 1;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 80px 0;
+            background-color: var(--gray-100);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .solution-card {
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .solution-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-full);
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Comparison */
+        .comparison {
+            padding: 80px 0;
+            background-color: var(--gray-100);
+        }
+
+        .comparison-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-top: 50px;
+        }
+
+        .comparison-image {
+            flex: 1;
+        }
+
+        .comparison-text {
+            flex: 1;
+        }
+
+        .comparison-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .comparison-item {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .comparison-item:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-icon-check {
+            color: #10b981; /* green */
+            font-size: 1.25rem;
+        }
+
+        /* Control Section */
+        .control {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .control-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .control-image {
+            flex: 1;
+        }
+
+        .control-text {
+            flex: 1;
+        }
+
+        .control-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .control-item {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .control-icon-check {
+            color: #10b981;
+            font-size: 1.25rem;
+        }
+
+        /* Conversion Section */
+        .conversion {
+            padding: 80px 0;
+            background-color: var(--gray-100);
+        }
+
+        .conversion-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .conversion-text {
+            flex: 1;
+        }
+
+        .conversion-image {
+            flex: 1;
+        }
+
+        .conversion-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .conversion-item {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .conversion-item:last-child {
+            border-bottom: none;
+        }
+
+        .conversion-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Guarantee Section */
+        .guarantee {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .guarantee-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .guarantee-card {
+            background-color: var(--gray-100);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .guarantee-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .guarantee-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .guarantee-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: var(--gradient-blue);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 3rem;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-link a {
+            color: var(--gray-300);
+            transition: color 0.2s;
+        }
+
+        .footer-link a:hover {
+            color: white;
+        }
+
+        .footer-form {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .footer-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .footer-input::placeholder {
+            color: var(--gray-300);
+        }
+
+        .footer-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .footer-btn:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        .footer-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray-300);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray-300);
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+
+        .mt-6 {
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .solution-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .guarantee-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .problem-content,
+            .control-container,
+            .conversion-container,
+            .comparison-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .solution-grid,
+            .guarantee-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-robot logo-icon"></i>
+                    Sys<span>Chat</span>
+                </a>
+                <nav class="nav-menu">
+                    <a href="#platforms" class="nav-item">Платформи</a>
+                    <a href="#pricing" class="nav-item">Цени</a>
+                    <a href="#contact" class="nav-item">Контакти</a>
+                    <a href="#demo" class="btn btn-primary">Попълни заявка</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="container">
+            <div class="hero-content animate">
+                <h1 class="hero-title">Повече продажби.<br>По-доволни клиенти.<br>Гарантирано.</h1>
+                <p class="hero-subtitle">SysChat - асистент за онлайн магазини.<br>Вие правите това, което умеете най-добре,<br>ние поемаме обслужването на клиентите.</p>
+                <a href="#demo" class="btn btn-primary btn-lg">Да, искам това!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title animate">Клиентите са важни...</h2>
+            <div class="problem-content">
+                <div class="problem-text animate">
+                    <p>...Но много от тях не успяват да намерят ясни отговори на въпроси си.</p>
+                    <p>Объркани и разочаровани, те напускат магазина – водейки до загубени продажби.</p>
+                </div>
+                <div class="problem-image animate">
+                    <!-- Тук ще добавите вашата снимка -->
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <h2>"Добре... Но какво ви прави различни?"</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-card animate">
+                    <div class="solution-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="solution-title">Денонощно обслужване</h3>
+                    <p>СисЧат дава отговори по всяко време на денонощието, без забавяне.</p>
+                </div>
+                <div class="solution-card animate">
+                    <div class="solution-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="solution-title">Винаги до клиентите</h3>
+                    <p>Благодарение на бързите и точни отговори, клиентите се чувстват информирани и остават във вашия магазин.</p>
+                </div>
+                <div class="solution-card animate">
+                    <div class="solution-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="solution-title">По-ниски разходи</h3>
+                    <p>Този тип комуникация намалява нуждата от персонал като пести време и средства.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vinagi do Klientite Section -->
+    <section class="conversion">
+        <div class="container">
+            <h2 class="section-title animate">Винаги до клиентите.</h2>
+            <div class="conversion-container">
+                <div class="conversion-text animate">
+                    <p>Отговаря вместо вас – на Сайта, във Facebook или Instagram.</p>
+                    <p>Ние поемаме обслужването, без пропуснати въпроси.</p>
+                    <div class="mt-4">
+                        <a href="#demo" class="btn btn-primary">Да, искам това!</a>
+                    </div>
+                </div>
+                <div class="conversion-image animate">
+                    <!-- Тук ще добавите вашите снимки на мобилни устройства -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Control Section -->
+    <section class="control">
+        <div class="container">
+            <h2 class="section-title animate">Контролът си е твой. Винаги.</h2>
+            <div class="control-container">
+                <div class="control-image animate">
+                    <!-- Тук ще добавите снимка на контролен панел -->
+                </div>
+                <div class="control-text animate">
+                    <p>SysChat работи вместо теб – но ти решаваш кога да се включваш.</p>
+                    <ul class="control-list">
+                        <li class="control-item">
+                            <i class="fas fa-check-circle control-icon-check"></i>
+                            <span>Влизай в разговори, когато пожелаеш</span>
+                        </li>
+                        <li class="control-item">
+                            <i class="fas fa-check-circle control-icon-check"></i>
+                            <span>Наблюдавай кои клиенти са най-активни</span>
+                        </li>
+                        <li class="control-item">
+                            <i class="fas fa-check-circle control-icon-check"></i>
+                            <span>Следи реалните резултати на твоя асистент</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="#demo" class="btn btn-primary">Да, искам това!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conversion Section -->
+    <section class="conversion">
+        <div class="container">
+            <h2 class="section-title animate">Хващаме колебанието. Превръщаме го в продажба.</h2>
+            <div class="conversion-container">
+                <div class="conversion-text animate">
+                    <p>Клиентът се колебае?</p>
+                    <p>СисЧат отговаря навреме и предлага точния продукт.</p>
+                    <ul class="conversion-list">
+                        <li class="conversion-item">
+                            <i class="fas fa-bullseye conversion-icon"></i>
+                            <span>Препоръчва.</span>
+                        </li>
+                        <li class="conversion-item">
+                            <i class="fas fa-comments conversion-icon"></i>
+                            <span>Отговаря.</span>
+                        </li>
+                        <li class="conversion-item">
+                            <i class="fas fa-shopping-cart conversion-icon"></i>
+                            <span>Завършва продажбата.</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="#demo" class="btn btn-primary">Да, искам това!</a>
+                    </div>
+                </div>
+                <div class="conversion-image animate">
+                    <!-- Тук ще добавите снимка на чат интерфейса -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title animate">Как работи SysChat?</h2>
+            <div class="steps">
+                <div class="step animate">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Разкажи ни за магазина си.</h3>
+                    <p>Попълни кратка форма с която да разберем от какво имаш нужда.</p>
+                </div>
+                <div class="step animate">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Получаваш асистента си до 24 ч.</h3>
+                    <p>След като е готов, го изпращаме за безплатен тест.</p>
+                </div>
+                <div class="step animate">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Харесва ти? Активираме го.</h3>
+                    <p>Вграждаме SysChat във желаната от теб платформа.</p>
+                </div>
+                <div class="step animate">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Клиентите пишат. Ти работиш.</h3>
+                    <p>Без забавяне. Без пропуснати продажби.</p>
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <a href="#demo" class="btn btn-primary btn-lg">Попълни заявка</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-grid">
+                <div class="guarantee-card animate">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="guarantee-title">Тествай без риск</h3>
+                    <p>Демо, създадено специално за твоя бизнес.</p>
+                </div>
+                <div class="guarantee-card animate">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="guarantee-title">14 дни гаранция</h3>
+                    <p>Не си доволен? Връщаме парите. Без въпроси.</p>
+                </div>
+                <div class="guarantee-card animate">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="guarantee-title">Доживотна поддръжка</h3>
+                    <p>Сигурна подръжка с цел предоставяне на най-доброто.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="demo" class="cta">
+        <div class="container">
+            <h2 class="cta-title animate">Готов ли си да спреш да губиш клиенти?</h2>
+            <p class="cta-subtitle animate">Всеки пропуснат въпрос е пропусната продажба.<br>SysChat отговаря, препоръчва и продава – вместо теб.</p>
+            <a href="#" class="btn btn-primary btn-lg animate">Попълни заявка</a>
+            <p class="mt-4 animate">Отнема по-малко от 1 минута</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="animate">
+                    <h3 class="footer-title">Полезни връзки</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Често задавани въпроси</a></li>
+                        <li class="footer-link"><a href="#">Поверителност</a></li>
+                        <li class="footer-link"><a href="#">Общи условия</a></li>
+                    </ul>
+                </div>
+                <div class="animate">
+                    <h3 class="footer-title">Контакти</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:contact@systemaicare.com">contact@systemaicare.com</a></li>
+                    </ul>
+                </div>
+                <div class="animate">
+                    <h3 class="footer-title">Абонирайте се за новини</h3>
+                    <form class="footer-form">
+                        <input type="email" class="footer-input" placeholder="Имейл">
+                        <button type="submit" class="footer-btn">Изпращане</button>
+                    </form>
+                    <div class="footer-checkbox">
+                        <input type="checkbox" id="consent">
+                        <label for="consent">С приемането на горната информация се съгласявам да бъда абониран за този бюлетин.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025, SysChat. Предоставено от Cardd</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимации при скролване
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate');
+            
+            // Първоначално всички елементи са скрити
+            animateElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Функция, която проверява дали елемент е видим във viewport
+            function checkInView() {
+                animateElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Проверяваме при зареждане и при скролване
+            window.addEventListener('scroll', checkInView);
+            checkInView(); // Проверка при зареждане
+            
+            // Плавно скролване при кликване на линкове
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>За нас</a></li>
+                        <li class="footer-link"><a href="#">
